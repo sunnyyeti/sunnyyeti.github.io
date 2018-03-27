@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ViaVia">
 <meta property="og:description" content="ROC, which stands for receiver operating characteristic, is a commonly used criteria to measure performance of a classifier.  Preliminary knowledgeBefore introducing the concept of ROC, we need to fir">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-27T21:18:10.366Z">
+<meta property="og:updated_time" content="2018-03-27T21:27:27.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Understanding ROC and AUC">
 <meta name="twitter:description" content="ROC, which stands for receiver operating characteristic, is a commonly used criteria to measure performance of a classifier.  Preliminary knowledgeBefore introducing the concept of ROC, we need to fir">
@@ -393,9 +393,13 @@
 <li>TN(true negative): predict a <strong>negative</strong> sample as <strong>negative</strong></li>
 <li>FN(false negative): predict a <strong>positive</strong> sample as <strong>negative</strong></li>
 </ul>
-<p>If we let <strong>1</strong> be positive and <strong>0</strong> be negative, then these four situations can be listed in following table:</p>
-<table><br>  <tr><br>    <td></td><br>    <td></td><br>    <td colspan="2">Predicted label</td><br>  </tr><br>  <tr><br>    <td></td><br>    <td></td><br>    <td>1</td><br>    <td>0</td><td><br>  </td></tr><br>  <tr><br>    <td rowspan="2"> Ground truth label</td><br>    <td>1</td><br>    <td>TP</td><br>    <td>FN</td><br>  </tr><br>    <tr><br>        <td>0</td><br>        <td>FP</td><br>        <td>TN</td><br>  </tr><br></table>
+<p>Now we let <strong>TP</strong>, <strong>FP</strong>, <strong>TN</strong>, <strong>FN</strong> represent the number of samples in corresponding situation and let <strong>1</strong> be positive label and <strong>0</strong> be negative label, then we can get the following table:</p>
+<table><br>  <tr><br>    <td></td><br>    <td></td><br>    <td colspan="2">Predicted label</td><br>    <td></td><br>  </tr><br>  <tr><br>    <td></td><br>    <td></td><br>    <td>1</td><br>    <td>0</td><br>    <td>Aggregate</td><td><br>  </td></tr><br>  <tr><br>    <td rowspan="2"> Ground truth label</td><br>    <td>1</td><br>    <td>TP</td><br>    <td>FN</td><br>    <td>Actual positive(TP+FN)</td><br>  </tr><br> <tr><br>        <td>0</td><br>        <td>FP</td><br>        <td>TN</td><br>        <td>Actual negative(FP+TN)</td><br>  </tr><br>   <tr><br>        <td></td><br>        <td>Aggregate</td><br>        <td>Predicted positive(TP+FP)</td><br>        <td>Predicted negative(FN+TN)</td><br>        <td>Total(TP+FP+TN+FN)</td><br>  </tr><br></table>
 
+<p>Now we give some definitions:</p>
+<ul>
+<li>TPR(True positive rate): </li>
+</ul>
 
       
     </div>
