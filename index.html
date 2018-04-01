@@ -393,7 +393,7 @@
 <li>TN(true negative): predict a <strong>negative</strong> sample as <strong>negative</strong></li>
 <li>FN(false negative): predict a <strong>positive</strong> sample as <strong>negative</strong></li>
 </ul>
-<p>Now we let <strong>TP</strong>, <strong>FP</strong>, <strong>TN</strong>, <strong>FN</strong> represent the number of samples in corresponding situation and let <strong>1</strong> be positive label and <strong>0</strong> be negative label, then we can get the following table</p>
+<p>Now we let <strong>TP</strong>, <strong>FP</strong>, <strong>TN</strong>, <strong>FN</strong> represent the number of samples in corresponding situation and let <strong>1</strong> be positive label and <strong>0</strong> be negative label, then we can get the following table:</p>
 <table>
   <tr>
     <td></td>
@@ -430,10 +430,166 @@
   </tr>
 </table>
 
-<p>Now we give some definitions:</p>
+<p>Now we give some definitions: </p>
 <ul>
-<li>TPR(True positive rate): </li>
+<li>TPR(True positive rate): $<strong>TP/(TP+FN)</strong>$</li>
+<li>FPR(False positive rate): $<strong>FP/(FP+TN)</strong>$</li>
+<li>TNR(True negative rate): $<strong>TN/(TN+FP)</strong>$</li>
+<li>FNR(False nagative rate): $<strong>FN/(FN+TP)</strong>$</li>
 </ul>
+<h2 id="How-to-draw-a-ROC"><a href="#How-to-draw-a-ROC" class="headerlink" title="How to draw a ROC"></a>How to draw a ROC</h2><p>Generally speaking, ROC is a curve whose X-axis is <strong>FPR</strong> and Y-axis is <strong>TPR</strong>. Assume we have a test set <strong>$D$</strong> consisting of <strong>$m_+$</strong> positive samples and <strong>$m_-$</strong> negative samples and a binary classifier(e.g. logistic regression) which can output the probability of a sample being predicted as positive. It is known that in practice we need to set a specific threshod $t$ and samples with probability higher than or equal to $t$ will be regarded as positive. We can keep adjusting  $t$ between $0$ and $1$, and calculate  <strong>FPR</strong> and <strong>TPR</strong> for each $t$ as coordinates of a point. All points finally get us the ROC curve. Below is a concrete example:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Class</th>
+<th>Score</th>
+<th>#</th>
+<th>Class</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>P</td>
+<td>0.99</td>
+<td>11</td>
+<td>N</td>
+<td>0.55</td>
+</tr>
+<tr>
+<td>2</td>
+<td>P</td>
+<td>0.97</td>
+<td>12</td>
+<td>N</td>
+<td>0.50</td>
+</tr>
+<tr>
+<td>3</td>
+<td>N</td>
+<td>0.80</td>
+<td>13</td>
+<td>P</td>
+<td>0.49</td>
+</tr>
+<tr>
+<td>4</td>
+<td>P</td>
+<td>0.75</td>
+<td>14</td>
+<td>N</td>
+<td>0.47</td>
+</tr>
+<tr>
+<td>5</td>
+<td>N</td>
+<td>0.70</td>
+<td>15</td>
+<td>P</td>
+<td>0.45</td>
+</tr>
+<tr>
+<td>6</td>
+<td>P</td>
+<td>0.69</td>
+<td>16</td>
+<td>N</td>
+<td>0.40</td>
+</tr>
+<tr>
+<td>7</td>
+<td>P</td>
+<td>0.65</td>
+<td>17</td>
+<td>N</td>
+<td>0.35</td>
+</tr>
+<tr>
+<td>8</td>
+<td>P</td>
+<td>0.63</td>
+<td>18</td>
+<td>P</td>
+<td>0.33</td>
+</tr>
+<tr>
+<td>9</td>
+<td>N</td>
+<td>0.62</td>
+<td>19</td>
+<td>N</td>
+<td>0.22</td>
+</tr>
+<tr>
+<td>10</td>
+<td>P</td>
+<td>0.55</td>
+<td>20</td>
+<td>N</td>
+<td>0.11</td>
+</tr>
+</tbody>
+</table>
+<p>Assume now we have 20 test samples(10 positive and 10 negative), and the column <em>Class</em> is the actual label and column <em>Score</em>  is the predicted probability from our classifer. We have sorted them in descending order based on <em>Score</em>. And the final ROC curve we can get is:</p>
+<p><img src="https://i.imgur.com/8tG2wmg.png" alt="Imgur" title="ROC curve"></p>
+<p>The procedure is as follows. </p>
+<ul>
+<li>Firstly we set threshold $t$ as 1, then no samples are treated as positive. In this case, $FPR=FP/(FP+TN)=0/(0+10)=0$ and $TPR=TP/(TP+FN)=0/(0+10)=0$, which gives us the first point <strong>A(0.0,0.0)</strong>. </li>
+<li>Then we set $t$ as $0.99$, then the first sample is treated as positive. In this case, $FPR=FP/(FP+TN)=0/(0+10)=0$ and $TPR=TP/(TP+FN)=1/(1+9)=0.1$, which gives us the second point <strong>B(0.0,0.1)</strong>. </li>
+<li>We can continue setting $t$ as the scores in descending order to get a series of points. Finally, when $t$ is $0$, then all samples are predicted as positive. In this case,  $FPR=FP/(FP+TN)=10/(10+0)=1$ and $TPR=TP/(TP+FN)=10/(10+0)=1$, which gives us the end point <strong>T(1.0,1.0)</strong>.</li>
+</ul>
+<p>So this is how we draw a ROC curve given a test set and a binary classifier. And we can know that ROC curve always goes through point (0,0) and (1,1).</p>
+<h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2><h3 id="What-is-AUC"><a href="#What-is-AUC" class="headerlink" title="What is AUC"></a>What is AUC</h3><p>After we get the ROC curve of a classifier on a specific test set, then how can we evaluate its performance? We use the so-called AUC which is the area under ROC curve! Generally speaking, the bigger the AUC is, the betther the classifer performs. Specially:</p>
+<ul>
+<li>If AUC=1, then the classifier is perfert, which means it gives all positive samples higher probabilities than negative samples. There also must be one threshold that could make the classifer’s accuracy 100% in this case.</li>
+<li>If 0.5&lt;AUC&lt;1, then the classifier is better than random guess. A proper threshold could make the classifier valuable. </li>
+<li>If AUC=0.5, then the classifier is equavilent to random guess.</li>
+<li>If AUC&lt;0.5, then the classifier is even worse than random guess. However, in this case we can always improve its performance by flipping the polarity of the prediction.</li>
+</ul>
+<h3 id="How-to-calculate-AUC"><a href="#How-to-calculate-AUC" class="headerlink" title="How to calculate  AUC"></a>How to calculate  AUC</h3><p>Through observation, we can find the area under the curve can be divided into multiple trapeziums. In the ROC curve, for  every adjacent two points $p_i(x_i,y_i)$ and $p_{i+1}(x_{i+1},y_{i+1})$, we draw perpendicular lines to the X-axis through them, then four points $(x_{i},0)$, $(x_{i},y_i)$, $(x_{i+1},y_{i+1})$, $(x_{i+1},0)$ form a trapezium, which is illustrated in following figure.
+<img src="https://i.imgur.com/ptZDpzh.png" alt="Imgur_AUC" title="AUC"></p>
+<p> Assume the test set $D$ consists of positive sample set $D_{+}$ and negative sample set $D_{-}$. And $|D|=m$, $|D_{+}|=m_{+}$, $|D_{-}|=m_{-}$. And ROC curve is formed by a series of points:</p>
+<p>  $${p_{1}(x_{1},y_{1}),p_{2}(x_{2},y_{2}),…p_{i}(x_{i},y_{i}),…p_{m}(x_{m},y_{m})}.$$ </p>
+<p>Then AUC can be calculated as:</p>
+<p>$$AUC=\frac{1}{2}\sum_{i=1}^{m-1}(x_{i+1}-x_{i})(y_{i+1}+y_{i})
+$$</p>
+<h3 id="Another-interpretation-of-AUC"><a href="#Another-interpretation-of-AUC" class="headerlink" title="Another interpretation of AUC"></a>Another interpretation of AUC</h3><p>We know if the classifier gives all positive samples higher probabilities than negative samples, then AUC is 1. This reminds us that AUC may be correlated with the quality of ranking of test set based on predicted probabilities. In fact, maximizing AUC is equilavent to minimizing the rank loss, which is defined as:</p>
+<p>$$l_{rank}=\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+  I\Big(f(x_{+}) \lt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
+  \right)$$</p>
+<p>  $I$ is an indicator function which maps $true$ to $1$ and $false$ to $0$. $f$ is a function which maps a sample to its probability of being positive. We consider each pair of positive and nagative samples, if the probability of positive sample is less than negative sample, we get “one” penalty, and if they are equal, we get “half” penalty. Essentially, $l_{rank}$ is the area above the ROC curve. In other words:</p>
+<p>  $$ AUC = 1-l_{rank}$$</p>
+<p>  To illustrate this, we need to notice that we move from $p_{i}(x_{i},y_{i})$ to $p_{i+1}(x_{i+1},y_{i+1})$ on the ROC curve when adjusting threshold $t$ from $t_{i}$ to $t_{i+1}$ and lower threshold will make more samples being treated as positive. In this process, $(x_{i+1}-x_{i})\ast m_{-}$ is the number of newly added $FP$ and $(y_{i+1}-y_{i})\ast m_{+}$ is the number of newly added $TP$. For example, when we adjusting threshold from $0.62$ to $0.55$, we move from point $J$ to $K$. And we get $1$ ($(0.4-0.3)\ast 10=1$) $FP$ that is the $11_{th}$ sample, and $1$ ($(0.7-0.6)\ast 10=1$) $TP$ that is the $10_{th}$ sample.
+  Now we can get:</p>
+<p>  $$1-l_{rank}=1-\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+  I\Big(f(x_{+}) \lt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
+  \right)
+  $$
+  $$=\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+  I\Big(f(x_{+}) \gt f(x_{-})\Big)+
+  I\Big(f(x_{+}) \lt f(x_{-})\Big)+I\Big(f(x_{+})=f(x_{-})\Big)
+  \right)$$
+  $$-\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+  I\Big(f(x_{+}) \lt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
+  \right)$$
+  $$=\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+  I\Big(f(x_{+}) \gt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
+  \right)$$</p>
+<p>We need to illustrate this is also the area under the curve. We can decompose the AUC is this way:
+<img src="https://i.imgur.com/JhfeQm4.png" alt="AUC2">
+We can count the number of pairs of positive and negative samples in which $f(x_{+})\gt f(x_{-})$ in following way. For example, from $p_{A}$ to $p_{C}$,  we get $2$ positive samples, then how many negative samples we have with lower probability? Horizontal line segments represent negative samples. For example from $p_{C}$ to $p_{D}$, we have $1$ negative sample and from $p_{E}$ to $p_{F}$, we have $1$ negative sample. So easily, we can get there $10$ negative samples with lower probability in total. So we can get number of pairs that is $2\ast 10=20$.  Divide it by $m_{+}\ast m_{-}=100$, we can get the exact area of the bottom two rectangles. Also it is not hard to find out why we have $\frac{1}{2}$ when $f(x_{+})=f(x_{-})$ if we consider the triangle under the line segment between $p_{J}$ and $p_{K}$. So now intuitively, we can understand $1-l_{rank}$ is just the $AUC$. From this perspective, AUC can be understood as the probability that a positive sample has a higher predicted score than a negative sample if they are randomly picked. </p>
 
           
         
@@ -1027,6 +1183,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
