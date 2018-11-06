@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Siamese network,CNN,RNN,BIMPM,Semantic similarity,">
 
 
 
@@ -79,13 +79,23 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="ViaVia">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Mirror question pair classificationProblem statementThis is an online competition hosted by one Chinese company which aims to predict whether a given pair of questions  actually share the same meaning">
+<meta name="keywords" content="Siamese network,CNN,RNN,BIMPM,Semantic similarity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mirror_question_pair_detection">
+<meta property="og:url" content="http://yoursite.com/2018/11/06/mirror-question-pair-detection/index.html">
 <meta property="og:site_name" content="ViaVia">
+<meta property="og:description" content="Mirror question pair classificationProblem statementThis is an online competition hosted by one Chinese company which aims to predict whether a given pair of questions  actually share the same meaning">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://imgur.com/1RWg9Mr.png">
+<meta property="og:image" content="https://i.imgur.com/2CvTWBg.png">
+<meta property="og:image" content="https://i.imgur.com/FUYgU2Y.png">
+<meta property="og:image" content="https://i.imgur.com/XSVsr0E.png">
+<meta property="og:updated_time" content="2018-11-06T23:09:46.956Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ViaVia">
+<meta name="twitter:title" content="mirror_question_pair_detection">
+<meta name="twitter:description" content="Mirror question pair classificationProblem statementThis is an online competition hosted by one Chinese company which aims to predict whether a given pair of questions  actually share the same meaning">
+<meta name="twitter:image" content="https://imgur.com/1RWg9Mr.png">
 
 
 
@@ -115,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/06/mirror-question-pair-detection/">
 
 
 
 
 
-  <title>ViaVia</title>
+  <title>mirror_question_pair_detection | ViaVia</title>
   
 
 
@@ -149,8 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -243,9 +252,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -275,9 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/mirror-question-pair-detection/" itemprop="url">mirror_question_pair_detection</a></h1>
+          <h1 class="post-title" itemprop="name headline">mirror_question_pair_detection</h1>
         
 
         <div class="post-meta">
@@ -383,9 +390,7 @@
       
 
       
-        
-          
-            <h1 id="Mirror-question-pair-classification"><a href="#Mirror-question-pair-classification" class="headerlink" title="Mirror question pair classification"></a>Mirror question pair classification</h1><h2 id="Problem-statement"><a href="#Problem-statement" class="headerlink" title="Problem statement"></a>Problem statement</h2><p>This is an online competition hosted by one Chinese company which aims to predict whether a given pair of questions  actually share the same meaning semantically. Because of privacy, all original questions are encoded as sequences of char ID and word ID. Char may contain single Chinese word, single English letter, punctuation and space. Word may contain Chinese and English words, punctuation and space. </p>
+        <h1 id="Mirror-question-pair-classification"><a href="#Mirror-question-pair-classification" class="headerlink" title="Mirror question pair classification"></a>Mirror question pair classification</h1><h2 id="Problem-statement"><a href="#Problem-statement" class="headerlink" title="Problem statement"></a>Problem statement</h2><p>This is an online competition hosted by one Chinese company which aims to predict whether a given pair of questions  actually share the same meaning semantically. Because of privacy, all original questions are encoded as sequences of char ID and word ID. Char may contain single Chinese word, single English letter, punctuation and space. Word may contain Chinese and English words, punctuation and space. </p>
 <h2 id="Dataset-desciption"><a href="#Dataset-desciption" class="headerlink" title="Dataset desciption"></a>Dataset desciption</h2><ul>
 <li>char_embed.txt<br>300-dimension char embedding vector trained by Google word2vec.</li>
 <li>word_embed.txt<br>300-dimension word embedding vector trained by Google word2vec.</li>
@@ -577,8 +582,6 @@ also perform the same process for the reverse matching direction.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">full_matching</span><span class="params">(self,q1_NLC,q2_NC,W)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :param q1_NLC:</span></span><br><span class="line"><span class="string">    :param q2_NC:</span></span><br><span class="line"><span class="string">    :return:NLP(p is number of perspective)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    q1_NL1C = q1_NLC.unsqueeze(<span class="number">2</span>)</span><br><span class="line">    W_11PC = W.unsqueeze(<span class="number">0</span>).unsqueeze(<span class="number">0</span>)</span><br><span class="line">    q1_NLPC = q1_NL1C*W_11PC</span><br><span class="line">    q2_N11C = q2_NC.unsqueeze(<span class="number">1</span>).unsqueeze(<span class="number">1</span>)</span><br><span class="line">    q2_N1PC = q2_N11C*W_11PC</span><br><span class="line">    q1_mm_q2_NLPC = q1_NLPC*q2_N1PC</span><br><span class="line">    q1_mm_q2_NLP = q1_mm_q2_NLPC.sum(dim=<span class="number">3</span>)</span><br><span class="line">    q1_NLPC_norm = q1_NLPC.norm(p=<span class="number">2</span>,dim=<span class="number">3</span>)</span><br><span class="line">    q2_N1PC_norm = q2_N1PC.norm(p=<span class="number">2</span>,dim=<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">return</span> q1_mm_q2_NLP/((q1_NLPC_norm*q2_N1PC_norm).clamp(min=<span class="number">1e-8</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxpool_matching</span><span class="params">(self,q1_NLC,q2_NLC,W,q2_lengths)</span>:</span></span><br><span class="line">    compare_L = torch.zeros(q2_NLC.size(<span class="number">1</span>),q1_NLC.size(<span class="number">0</span>),q1_NLC.size(<span class="number">1</span>),self.number_perspective).to(self.device)</span><br><span class="line">    <span class="keyword">for</span> l <span class="keyword">in</span> xrange(q2_NLC.size(<span class="number">1</span>)):</span><br><span class="line">        tmp_h_NC = q2_NLC[:,l,:]</span><br><span class="line">        compare_L[l] = self.full_matching(q1_NLC,tmp_h_NC,W)</span><br><span class="line">    res = torch.zeros(q1_NLC.size(<span class="number">0</span>),q1_NLC.size(<span class="number">1</span>),self.number_perspective).to(self.device)</span><br><span class="line">    <span class="keyword">for</span> i,l <span class="keyword">in</span> enumerate(q2_lengths):</span><br><span class="line">        res[i] = compare_L[:l,i].max(dim=<span class="number">0</span>)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">attentive_matching</span><span class="params">(self,q1_NLC,q2_NLC,W)</span>:</span></span><br><span class="line">    q1_NLC_norm = q1_NLC/(q1_NLC.norm(p=<span class="number">2</span>,dim=<span class="number">2</span>,keepdim=<span class="keyword">True</span>).clamp(min=<span class="number">1e-8</span>))</span><br><span class="line">    q2_NLC_norm = q2_NLC/(q2_NLC.norm(p=<span class="number">2</span>,dim=<span class="number">2</span>,keepdim=<span class="keyword">True</span>).clamp(min=<span class="number">1e-8</span>))</span><br><span class="line">    q2_NCL_norm = q2_NLC_norm.transpose(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">    q1_q2_NLL = q1_NLC_norm.bmm(q2_NCL_norm)</span><br><span class="line">    q1_q2_NLL_norm = q1_q2_NLL/q1_q2_NLL.sum(dim=<span class="number">2</span>,keepdim=<span class="keyword">True</span>).clamp(min=<span class="number">1e-8</span>)</span><br><span class="line">    q1_L_mean_NLC = q1_q2_NLL_norm.bmm(q2_NLC)</span><br><span class="line"></span><br><span class="line">    q1_NLC_exp_NL1C = q1_NLC.unsqueeze(<span class="number">2</span>)</span><br><span class="line">    W_exp_11PC = W.unsqueeze(<span class="number">0</span>).unsqueeze(<span class="number">0</span>)</span><br><span class="line">    q1_NLPC = q1_NLC_exp_NL1C * W_exp_11PC</span><br><span class="line"></span><br><span class="line">    q1_L_mean_NLPC = q1_L_mean_NLC.unsqueeze(<span class="number">2</span>)* W_exp_11PC <span class="comment">##NL1C * 11PC</span></span><br><span class="line"></span><br><span class="line">    q1_L_mean_NLP_sum = (q1_NLPC*q1_L_mean_NLPC).sum(dim=<span class="number">3</span>)<span class="comment">##NLP</span></span><br><span class="line">    q1_NLPC_norm = q1_NLPC.norm(p=<span class="number">2</span>,dim=<span class="number">3</span>)<span class="comment">##NLP</span></span><br><span class="line">    q1_L_mean_NLPC_norm = q1_L_mean_NLPC.norm(p=<span class="number">2</span>,dim=<span class="number">3</span>)<span class="comment">##NLP</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> q1_L_mean_NLP_sum/((q1_NLPC_norm*q1_L_mean_NLPC_norm).clamp(min=<span class="number">1e-8</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_attentive_matching</span><span class="params">(self,q1_NLC,q2_NLC,W,q2_lengths)</span>:</span></span><br><span class="line">    q1_NLC_norm = q1_NLC/(q1_NLC.norm(p=<span class="number">2</span>,dim=<span class="number">2</span>,keepdim=<span class="keyword">True</span>).clamp(min=<span class="number">1e-8</span>))</span><br><span class="line">    q2_NLC_norm = q2_NLC/(q2_NLC.norm(p=<span class="number">2</span>,dim=<span class="number">2</span>,keepdim=<span class="keyword">True</span>).clamp(min=<span class="number">1e-8</span>))</span><br><span class="line">    q2_NCL_norm = q2_NLC_norm.transpose(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">    q1_q2_NLL_cosine = q1_NLC_norm.bmm(q2_NCL_norm)</span><br><span class="line">    res = torch.zeros(q1_NLC.size(<span class="number">0</span>),q1_NLC.size(<span class="number">1</span>),q1_NLC.size(<span class="number">2</span>)).to(self.device)<span class="comment">##NLC</span></span><br><span class="line">    <span class="keyword">for</span> i,l <span class="keyword">in</span> enumerate(q2_lengths):</span><br><span class="line">        tmp = q1_q2_NLL_cosine[i,:,:l]</span><br><span class="line">        inds = tmp.max(dim=<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">        res[i] = q2_NLC[i,inds,:]</span><br><span class="line"></span><br><span class="line">    q1_NLC_exp_NL1C = q1_NLC.unsqueeze(<span class="number">2</span>)</span><br><span class="line">    W_exp_11PC = W.unsqueeze(<span class="number">0</span>).unsqueeze(<span class="number">0</span>)</span><br><span class="line">    q1_NLPC = q1_NLC_exp_NL1C * W_exp_11PC</span><br><span class="line"></span><br><span class="line">    q1_max_NLPC = res.unsqueeze(<span class="number">2</span>)* W_exp_11PC <span class="comment">##NL1C * 11PC</span></span><br><span class="line"></span><br><span class="line">    q1_max_NLP_sum = (q1_NLPC*q1_max_NLPC).sum(dim=<span class="number">3</span>)<span class="comment">##NLP</span></span><br><span class="line">    q1_NLPC_norm = q1_NLPC.norm(p=<span class="number">2</span>,dim=<span class="number">3</span>)<span class="comment">##NLP</span></span><br><span class="line">    q1_max_NLPC_norm = q1_max_NLPC.norm(p=<span class="number">2</span>,dim=<span class="number">3</span>)<span class="comment">##NLP</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> q1_max_NLP_sum/((q1_NLPC_norm*q1_max_NLPC_norm).clamp(min=<span class="number">1e-8</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,input)</span>:</span></span><br><span class="line">    q1,q2  = torch.chunk(input, <span class="number">2</span>, dim=<span class="number">1</span>) <span class="comment">## Split the question pairs</span></span><br><span class="line">    q1, q1_lens, q1_perm_idx, q1_reverse_order_indx = self.sort(q1)</span><br><span class="line">    q2, q2_lens, q2_perm_idx, q2_reverse_order_indx = self.sort(q2)</span><br><span class="line">    q1_pad_embed = self.nn_Embedding(q1)<span class="comment">##NLC</span></span><br><span class="line">    q2_pad_embed = self.nn_Embedding(q2)<span class="comment">##NLC</span></span><br><span class="line">    q1_embed = self.input_drop(q1_pad_embed)</span><br><span class="line">    q2_embed = self.input_drop(q2_pad_embed)</span><br><span class="line">    q1_pack_pad_seq_embed = pack_padded_sequence(q1_embed, batch_first=<span class="keyword">True</span>, lengths=q1_lens)</span><br><span class="line">    q2_pack_pad_seq_embed = pack_padded_sequence(q2_embed, batch_first=<span class="keyword">True</span>, lengths=q2_lens)</span><br><span class="line">    <span class="comment">##Q1</span></span><br><span class="line">    q1_out,q1_hidden = self.crl(q1_pack_pad_seq_embed)</span><br><span class="line">    pad_q1_out = pad_packed_sequence(q1_out, batch_first=<span class="keyword">True</span>)</span><br><span class="line">    q1h,_ = q1_hidden</span><br><span class="line">    pad_q1_forward,pad_q1_back = torch.chunk(pad_q1_out[<span class="number">0</span>],<span class="number">2</span>,dim=<span class="number">2</span>)<span class="comment">##NLC</span></span><br><span class="line">    h_q1_forward = q1h[<span class="number">-2</span>]</span><br><span class="line">    h_q1_back = q1h[<span class="number">-1</span>]</span><br><span class="line">    pad_q1_forward_orig = pad_q1_forward[q1_reverse_order_indx]</span><br><span class="line">    pad_q1_back_orig = pad_q1_back[q1_reverse_order_indx]</span><br><span class="line">    h_q1_forward_orig = h_q1_forward[q1_reverse_order_indx]</span><br><span class="line">    h_q1_back_orig = h_q1_back[q1_reverse_order_indx]</span><br><span class="line">    q1_lens_orig = q1_lens[q1_reverse_order_indx]</span><br><span class="line">    <span class="comment">##Q2</span></span><br><span class="line">    q2_out,q2_hidden = self.crl(q2_pack_pad_seq_embed)</span><br><span class="line">    pad_q2_out = pad_packed_sequence(q2_out, batch_first=<span class="keyword">True</span>)</span><br><span class="line">    q2h,_ = q2_hidden</span><br><span class="line">    pad_q2_forward,pad_q2_back = torch.chunk(pad_q2_out[<span class="number">0</span>],<span class="number">2</span>,dim=<span class="number">2</span>)<span class="comment">##NLC</span></span><br><span class="line">    h_q2_forward = q2h[<span class="number">-2</span>]</span><br><span class="line">    h_q2_back = q2h[<span class="number">-1</span>]</span><br><span class="line">    pad_q2_forward_orig = pad_q2_forward[q2_reverse_order_indx]</span><br><span class="line">    pad_q2_back_orig = pad_q2_back[q2_reverse_order_indx]</span><br><span class="line">    h_q2_forward_orig = h_q2_forward[q2_reverse_order_indx]</span><br><span class="line">    h_q2_back_orig = h_q2_back[q2_reverse_order_indx]</span><br><span class="line">    q2_lens_orig = q2_lens[q2_reverse_order_indx]</span><br><span class="line"></span><br><span class="line">    q1_for_full_matching = self.full_matching(pad_q1_forward_orig,h_q2_forward_orig,self.MW1)</span><br><span class="line">    q1_back_full_matching = self.full_matching(pad_q1_back_orig,h_q2_back_orig,self.MW2)</span><br><span class="line">    q1_for_maxpool_matching = self.maxpool_matching(pad_q1_forward_orig,pad_q2_forward_orig,self.MW3,q2_lens_orig)</span><br><span class="line">    q1_back_maxpool_matching = self.maxpool_matching(pad_q1_back_orig,pad_q2_back_orig,self.MW4,q2_lens_orig)</span><br><span class="line">    q1_for_att_matching = self.attentive_matching(pad_q1_forward_orig,pad_q2_forward_orig,self.MW5)</span><br><span class="line">    q1_back_att_matching = self.attentive_matching(pad_q1_back_orig,pad_q2_back_orig,self.MW6)</span><br><span class="line">    q1_for_maxatt_matching = self.max_attentive_matching(pad_q1_forward_orig,pad_q2_forward_orig,self.MW7,q2_lens_orig)</span><br><span class="line">    q1_back_maxatt_matching = self.max_attentive_matching(pad_q1_back_orig,pad_q2_back_orig,self.MW8,q2_lens_orig)</span><br><span class="line"></span><br><span class="line">    q2_for_full_matching = self.full_matching(pad_q2_forward_orig,h_q1_forward_orig,self.MW1)</span><br><span class="line">    q2_back_full_matching = self.full_matching(pad_q2_back_orig,h_q1_back_orig,self.MW2)</span><br><span class="line">    q2_for_maxpool_matching = self.maxpool_matching(pad_q2_forward_orig,pad_q1_forward_orig,self.MW3,q1_lens_orig)</span><br><span class="line">    q2_back_maxpool_matching = self.maxpool_matching(pad_q2_back_orig,pad_q1_back_orig,self.MW4,q1_lens_orig)</span><br><span class="line">    q2_for_att_matching = self.attentive_matching(pad_q2_forward_orig,pad_q1_forward_orig,self.MW5)</span><br><span class="line">    q2_back_att_matching = self.attentive_matching(pad_q2_back_orig,pad_q1_back_orig,self.MW6)</span><br><span class="line">    q2_for_maxatt_matching = self.max_attentive_matching(pad_q2_forward_orig,pad_q1_forward_orig,self.MW7,q1_lens_orig)</span><br><span class="line">    q2_back_maxatt_matching = self.max_attentive_matching(pad_q2_back_orig,pad_q1_back_orig,self.MW8,q1_lens_orig)</span><br><span class="line"></span><br><span class="line">    q1_agg = torch.cat([q1_for_full_matching,</span><br><span class="line">                        q1_back_full_matching,</span><br><span class="line">                        q1_for_maxpool_matching,</span><br><span class="line">                        q1_back_maxpool_matching,</span><br><span class="line">                        q1_for_att_matching,</span><br><span class="line">                        q1_back_att_matching,</span><br><span class="line">                        q1_for_maxatt_matching,</span><br><span class="line">                        q1_back_maxatt_matching</span><br><span class="line">                         ],dim=<span class="number">2</span>) <span class="comment">##NXLX8P</span></span><br><span class="line">    <span class="comment">#print("q1_agg")</span></span><br><span class="line">    <span class="comment">#print(q1_agg.size())</span></span><br><span class="line">    q2_agg = torch.cat([</span><br><span class="line">        q2_for_full_matching,</span><br><span class="line">        q2_back_full_matching,</span><br><span class="line">        q2_for_maxpool_matching,</span><br><span class="line">        q2_back_maxpool_matching,</span><br><span class="line">        q2_for_att_matching,</span><br><span class="line">        q2_back_att_matching,</span><br><span class="line">        q2_for_maxatt_matching,</span><br><span class="line">        q2_back_maxatt_matching</span><br><span class="line">    ],dim=<span class="number">2</span>)<span class="comment">##NXLX8P</span></span><br><span class="line">    <span class="comment">#print("q2_agg")</span></span><br><span class="line">    <span class="comment">#print(q2_agg.size())</span></span><br><span class="line">    q1_agg_order = q1_agg[q1_perm_idx]</span><br><span class="line">    q2_agg_order = q2_agg[q2_perm_idx]</span><br><span class="line">    q1_pack_pad_agg_order = pack_padded_sequence(q1_agg_order, batch_first=<span class="keyword">True</span>, lengths=q1_lens)</span><br><span class="line">    q2_pack_pad_agg_order = pack_padded_sequence(q2_agg_order, batch_first=<span class="keyword">True</span>, lengths=q2_lens)</span><br><span class="line"></span><br><span class="line">    q1_agout,q1_aghidden = self.al(q1_pack_pad_agg_order)</span><br><span class="line">    q1agh,_ = q1_aghidden</span><br><span class="line"></span><br><span class="line">    q2_agout,q2_aghidden = self.al(q2_pack_pad_agg_order)</span><br><span class="line">    q2agh,_ = q2_aghidden</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    q1_agencode = torch.cat((q1agh[<span class="number">-2</span>], q1agh[<span class="number">-1</span>]), dim=<span class="number">1</span>)</span><br><span class="line">    q2_agencode = torch.cat((q2agh[<span class="number">-2</span>], q2agh[<span class="number">-1</span>]), dim=<span class="number">1</span>)</span><br><span class="line">    q1_encode_reverse = q1_agencode[q1_reverse_order_indx]</span><br><span class="line">    q2_encode_reverse = q2_agencode[q2_reverse_order_indx]</span><br><span class="line">    q_pair_encode_q12= torch.cat((q1_encode_reverse,q2_encode_reverse),dim=<span class="number">1</span>)</span><br><span class="line">    hid1 = self.linear1_drop(F.relu(self.linear1(q_pair_encode_q12)))</span><br><span class="line">    hid2 = self.linear2_drop(F.relu(self.linear2(hid1)))</span><br><span class="line">    out = self.linear3(hid2)</span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure></p>
 <h4 id="Ensemble"><a href="#Ensemble" class="headerlink" title="Ensemble"></a>Ensemble</h4><p>Finally ensemble is adopted to achieve the best score.</p>
 
-          
-        
       
     </div>
     
@@ -593,593 +596,44 @@ also perform the same process for the reverse matching direction.</p>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/05/cpp碎碎念/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hao Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ViaVia">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/05/cpp碎碎念/" itemprop="url">cpp碎碎念</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-05T20:51:11+02:00">
-                2018-04-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Technique/" itemprop="url" rel="index">
-                    <span itemprop="name">Technique</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Technique/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Siamese-network/" rel="tag"># Siamese network</a>
           
-
+            <a href="/tags/CNN/" rel="tag"># CNN</a>
           
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/05/cpp碎碎念/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/04/05/cpp碎碎念/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
+            <a href="/tags/RNN/" rel="tag"># RNN</a>
           
-
+            <a href="/tags/BIMPM/" rel="tag"># BIMPM</a>
           
+            <a href="/tags/Semantic-similarity/" rel="tag"># Semantic similarity</a>
           
-             <span id="/2018/04/05/cpp碎碎念/" class="leancloud_visitors" data-flag-title="cpp碎碎念">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="函数默认参数"><a href="#函数默认参数" class="headerlink" title="函数默认参数"></a>函数默认参数</h2><ul>
-<li>所有默认参数必须放在右侧</li>
-<li>在同一个作用域中，一个参数只能被指定一次默认值，不能在声明和定义中同时指定默认参数</li>
-<li>习惯上，默认参数在公共头文件包含的函数声明中指定，否则默认参数只能用于包含该函数定义的文件中的函数调用</li>
-</ul>
-<h2 id="inline内联函数"><a href="#inline内联函数" class="headerlink" title="inline内联函数"></a>inline内联函数</h2><ul>
-<li>关键字inline可以同时在函数声明和定义处，也可只用于一处。</li>
-<li>如果函数定义在调用之后，则必须在函数声明中就包括inline，否则将作为一般函数处理。</li>
-<li>在多文件结构中，每个文件中都必须定义该内联函数，建议把内联函数的定义放在头文件中。</li>
-<li>内联成员函数:<ul>
-<li>inline + 成员函数 </li>
-<li>整个函数体出现在类定义内部</li>
-</ul>
-</li>
-</ul>
-<h2 id="默认："><a href="#默认：" class="headerlink" title="默认："></a>默认：</h2><ul>
-<li>默认构造函数</li>
-<li>默认复制构造函数</li>
-<li>默认析构函数</li>
-<li>默认赋值操作</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/understanding-ROC-and-AUC/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hao Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ViaVia">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/27/understanding-ROC-and-AUC/" itemprop="url">Understanding ROC and AUC</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-27T20:02:37+02:00">
-                2018-03-27
-              </time>
+              <a href="/2018/04/05/cpp碎碎念/" rel="next" title="cpp碎碎念">
+                <i class="fa fa-chevron-left"></i> cpp碎碎念
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Technique/" itemprop="url" rel="index">
-                    <span itemprop="name">Technique</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Technique/Machine-learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/27/understanding-ROC-and-AUC/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/03/27/understanding-ROC-and-AUC/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/03/27/understanding-ROC-and-AUC/" class="leancloud_visitors" data-flag-title="Understanding ROC and AUC">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>ROC, which stands for <strong>receiver operating characteristic</strong>, is a commonly used criteria to measure performance of a classifier. </p>
-<h2 id="Preliminary-knowledge"><a href="#Preliminary-knowledge" class="headerlink" title="Preliminary knowledge"></a>Preliminary knowledge</h2><p>Before introducing the concept of ROC, we need to firstly know some basics. Here, take a binary classifier as an example(logistic regression, random forest etc.), there are totally four situations when doing prediction. </p>
-<ul>
-<li>TP(true positive): precdict a <strong>positive</strong> sample as <strong>positive</strong></li>
-<li>FP(false positive): predict a <strong>negative</strong> sample as <strong>positive</strong></li>
-<li>TN(true negative): predict a <strong>negative</strong> sample as <strong>negative</strong></li>
-<li>FN(false negative): predict a <strong>positive</strong> sample as <strong>negative</strong></li>
-</ul>
-<p>Now we let <strong>TP</strong>, <strong>FP</strong>, <strong>TN</strong>, <strong>FN</strong> represent the number of samples in corresponding situation and let <strong>1</strong> be positive label and <strong>0</strong> be negative label, then we can get the following table:</p>
-<table>
-  <tr>
-    <td></td>
-    <td></td>
-    <td colspan="2">Predicted label</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td>1</td>
-    <td>0</td>
-    <td>Aggregate</td>
-  </tr>
-  <tr>
-    <td rowspan="2"> Ground truth label</td>
-    <td>1</td>
-    <td>TP</td>
-    <td>FN</td>
-    <td>Actual positive(TP+FN)</td>
-  </tr>
- <tr>
-        <td>0</td>
-        <td>FP</td>
-        <td>TN</td>
-        <td>Actual negative(FP+TN)</td>
-  </tr>
-   <tr>
-        <td></td>
-        <td>Aggregate</td>
-        <td>Predicted positive(TP+FP)</td>
-        <td>Predicted negative(FN+TN)</td>
-        <td>Total(TP+FP+TN+FN)</td>
-  </tr>
-</table>
-
-<p>Now we give some definitions: </p>
-<ul>
-<li>TPR(True positive rate): $TP/(TP+FN)$</li>
-<li>FPR(False positive rate): $FP/(FP+TN)$</li>
-<li>TNR(True negative rate): $TN/(TN+FP)$</li>
-<li>FNR(False nagative rate): $FN/(FN+TP)$</li>
-</ul>
-<h2 id="How-to-draw-a-ROC"><a href="#How-to-draw-a-ROC" class="headerlink" title="How to draw a ROC"></a>How to draw a ROC</h2><p>Generally speaking, ROC is a curve whose X-axis is <strong>FPR</strong> and Y-axis is <strong>TPR</strong>. Assume we have a test set <strong>$D$</strong> consisting of <strong>$m_+$</strong> positive samples and <strong>$m_-$</strong> negative samples and a binary classifier(e.g. logistic regression) which can output the probability of a sample being predicted as positive. It is known that in practice we need to set a specific threshod $t$ and samples with probability higher than or equal to $t$ will be regarded as positive. We can keep adjusting  $t$ between $0$ and $1$, and calculate  <strong>FPR</strong> and <strong>TPR</strong> for each $t$ as coordinates of a point. All points finally get us the ROC curve. Below is a concrete example:</p>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Class</th>
-<th>Score</th>
-<th>#</th>
-<th>Class</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>P</td>
-<td>0.99</td>
-<td>11</td>
-<td>N</td>
-<td>0.55</td>
-</tr>
-<tr>
-<td>2</td>
-<td>P</td>
-<td>0.97</td>
-<td>12</td>
-<td>N</td>
-<td>0.50</td>
-</tr>
-<tr>
-<td>3</td>
-<td>N</td>
-<td>0.80</td>
-<td>13</td>
-<td>P</td>
-<td>0.49</td>
-</tr>
-<tr>
-<td>4</td>
-<td>P</td>
-<td>0.75</td>
-<td>14</td>
-<td>N</td>
-<td>0.47</td>
-</tr>
-<tr>
-<td>5</td>
-<td>N</td>
-<td>0.70</td>
-<td>15</td>
-<td>P</td>
-<td>0.45</td>
-</tr>
-<tr>
-<td>6</td>
-<td>P</td>
-<td>0.69</td>
-<td>16</td>
-<td>N</td>
-<td>0.40</td>
-</tr>
-<tr>
-<td>7</td>
-<td>P</td>
-<td>0.65</td>
-<td>17</td>
-<td>N</td>
-<td>0.35</td>
-</tr>
-<tr>
-<td>8</td>
-<td>P</td>
-<td>0.63</td>
-<td>18</td>
-<td>P</td>
-<td>0.33</td>
-</tr>
-<tr>
-<td>9</td>
-<td>N</td>
-<td>0.62</td>
-<td>19</td>
-<td>N</td>
-<td>0.22</td>
-</tr>
-<tr>
-<td>10</td>
-<td>P</td>
-<td>0.55</td>
-<td>20</td>
-<td>N</td>
-<td>0.11</td>
-</tr>
-</tbody>
-</table>
-<p>Assume now we have 20 test samples(10 positive and 10 negative), and the column <em>Class</em> is the actual label and column <em>Score</em>  is the predicted probability from our classifer. We have sorted them in descending order based on <em>Score</em>. And the final ROC curve we can get is:</p>
-<p><img src="https://i.imgur.com/8tG2wmg.png" alt="Imgur" title="ROC curve"></p>
-<p>The procedure is as follows. </p>
-<ul>
-<li>Firstly we set threshold $t$ as 1, then no samples are treated as positive. In this case, $FPR=FP/(FP+TN)=0/(0+10)=0$ and $TPR=TP/(TP+FN)=0/(0+10)=0$, which gives us the first point <strong>A(0.0,0.0)</strong>. </li>
-<li>Then we set $t$ as $0.99$, then the first sample is treated as positive. In this case, $FPR=FP/(FP+TN)=0/(0+10)=0$ and $TPR=TP/(TP+FN)=1/(1+9)=0.1$, which gives us the second point <strong>B(0.0,0.1)</strong>. </li>
-<li>We can continue setting $t$ as the scores in descending order to get a series of points. Finally, when $t$ is $0$, then all samples are predicted as positive. In this case,  $FPR=FP/(FP+TN)=10/(10+0)=1$ and $TPR=TP/(TP+FN)=10/(10+0)=1$, which gives us the end point <strong>T(1.0,1.0)</strong>.</li>
-</ul>
-<p>So this is how we draw a ROC curve given a test set and a binary classifier. And we can know that ROC curve always goes through point (0,0) and (1,1).</p>
-<h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2><h3 id="What-is-AUC"><a href="#What-is-AUC" class="headerlink" title="What is AUC"></a>What is AUC</h3><p>After we get the ROC curve of a classifier on a specific test set, then how can we evaluate its performance? We use the so-called AUC which is the area under ROC curve! Generally speaking, the bigger the AUC is, the betther the classifer performs. Specially:</p>
-<ul>
-<li>If AUC=1, then the classifier is perfert, which means it gives all positive samples higher probabilities than negative samples. There also must be one threshold that could make the classifer’s accuracy 100% in this case.</li>
-<li>If 0.5&lt;AUC&lt;1, then the classifier is better than random guess. A proper threshold could make the classifier valuable. </li>
-<li>If AUC=0.5, then the classifier is equavilent to random guess.</li>
-<li>If AUC&lt;0.5, then the classifier is even worse than random guess. However, in this case we can always improve its performance by flipping the polarity of the prediction.</li>
-</ul>
-<h3 id="How-to-calculate-AUC"><a href="#How-to-calculate-AUC" class="headerlink" title="How to calculate  AUC"></a>How to calculate  AUC</h3><p>Through observation, we can find the area under the curve can be divided into multiple trapeziums. In the ROC curve, for  every adjacent two points $p_i(x_i,y_i)$ and $p_{i+1}(x_{i+1},y_{i+1})$, we draw perpendicular lines to the X-axis through them, then four points $(x_{i},0)$, $(x_{i},y_i)$, $(x_{i+1},y_{i+1})$, $(x_{i+1},0)$ form a trapezium, which is illustrated in following figure.
-<img src="https://i.imgur.com/ptZDpzh.png" alt="Imgur_AUC" title="AUC"></p>
-<p> Assume the test set $D$ consists of positive sample set $D_{+}$ and negative sample set $D_{-}$. And $|D|=m$, $|D_{+}|=m_{+}$, $|D_{-}|=m_{-}$. And ROC curve is formed by a series of points:</p>
-<p>  $${p_{1}(x_{1},y_{1}),p_{2}(x_{2},y_{2}),…p_{i}(x_{i},y_{i}),…p_{m}(x_{m},y_{m})}.$$ </p>
-<p>Then AUC can be calculated as:</p>
-<p>$$AUC=\frac{1}{2}\sum_{i=1}^{m-1}(x_{i+1}-x_{i})(y_{i+1}+y_{i})
-$$</p>
-<h3 id="Another-interpretation-of-AUC"><a href="#Another-interpretation-of-AUC" class="headerlink" title="Another interpretation of AUC"></a>Another interpretation of AUC</h3><p>We know if the classifier gives all positive samples higher probabilities than negative samples, then AUC is 1. This reminds us that AUC may be correlated with the quality of ranking of test set based on predicted probabilities. In fact, maximizing AUC is equilavent to minimizing the rank loss, which is defined as:</p>
-<p>$$l_{rank}=\frac{1}{m_{+}m_{-}}
-\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
-\left(
-  I\Big(f(x_{+}) \lt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
-  \right)$$</p>
-<p>  $I$ is an indicator function which maps $true$ to $1$ and $false$ to $0$. $f$ is a function which maps a sample to its probability of being positive. We consider each pair of positive and nagative samples, if the probability of positive sample is less than negative sample, we get “one” penalty, and if they are equal, we get “half” penalty. Essentially, $l_{rank}$ is the area above the ROC curve. In other words:</p>
-<p>  $$ AUC = 1-l_{rank}$$</p>
-<p>  To illustrate this, we need to notice that we move from $p_{i}(x_{i},y_{i})$ to $p_{i+1}(x_{i+1},y_{i+1})$ on the ROC curve when adjusting threshold $t$ from $t_{i}$ to $t_{i+1}$ and lower threshold will make more samples being treated as positive. In this process, $(x_{i+1}-x_{i})\ast m_{-}$ is the number of newly added $FP$ and $(y_{i+1}-y_{i})\ast m_{+}$ is the number of newly added $TP$. For example, when we adjusting threshold from $0.62$ to $0.55$, we move from point $J$ to $K$. And we get $1$ ($(0.4-0.3)\ast 10=1$) $FP$ that is the $11_{th}$ sample, and $1$ ($(0.7-0.6)\ast 10=1$) $TP$ that is the $10_{th}$ sample.
-  Now we can get:</p>
-<p>  $$1-l_{rank}=1-\frac{1}{m_{+}m_{-}}
-\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
-\left(
-  I\Big(f(x_{+}) \lt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
-  \right)
-  $$
-  $$=\frac{1}{m_{+}m_{-}}
-\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
-\left(
-  I\Big(f(x_{+}) \gt f(x_{-})\Big)+
-  I\Big(f(x_{+}) \lt f(x_{-})\Big)+I\Big(f(x_{+})=f(x_{-})\Big)
-  \right)$$
-  $$-\frac{1}{m_{+}m_{-}}
-\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
-\left(
-  I\Big(f(x_{+}) \lt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
-  \right)$$
-  $$=\frac{1}{m_{+}m_{-}}
-\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
-\left(
-  I\Big(f(x_{+}) \gt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
-  \right)$$</p>
-<p>We need to illustrate this is also the area under the curve. We can decompose the AUC is this way:
-<img src="https://i.imgur.com/JhfeQm4.png" alt="AUC2">
-We can count the number of pairs of positive and negative samples in which $f(x_{+})\gt f(x_{-})$ in following way. For example, from $p_{A}$ to $p_{C}$,  we get $2$ positive samples, then how many negative samples we have with lower probability? Horizontal line segments represent negative samples. For example from $p_{C}$ to $p_{D}$, we have $1$ negative sample and from $p_{E}$ to $p_{F}$, we have $1$ negative sample. So easily, we can get there are $10$ negative samples with lower probability in total. So we can get number of pairs that is $2\ast 10=20$.  Divide it by $m_{+}\ast m_{-}=100$, we can get the exact area of the bottom two rectangles. </p>
-<p>Also it is not hard to find out why we have $\frac{1}{2}$ when $f(x_{+})=f(x_{-})$ if we consider the triangle under the line segment between $p_{J}$ and $p_{K}$. So now intuitively, we can understand $1-l_{rank}$ is just the $AUC$.</p>
-<p> From this perspective, AUC can be understood as the probability that a positive sample has a higher predicted score than a negative sample if they are randomly picked. </p>
-<h2 id="Python-script-to-draw-ROC"><a href="#Python-script-to-draw-ROC" class="headerlink" title="Python script to draw ROC"></a>Python script to draw ROC</h2> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ROC</span><span class="params">(labels,probs)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    @param: labels, a list of actual labels(0 or 1). 1 is positive and 0 is negative.</span></span><br><span class="line"><span class="string">    @param: probs: a list of predicted probabilities.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    l_p = zip(labels,probs)</span><br><span class="line">    l_p.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>],reverse=<span class="keyword">True</span>)</span><br><span class="line">    labels, probs = map(list,zip(*l_p))</span><br><span class="line">    actual_cnts = [<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> l <span class="keyword">in</span> labels:</span><br><span class="line">        actual_cnts[l]+=<span class="number">1</span></span><br><span class="line">    points_x = [<span class="number">0</span>]</span><br><span class="line">    points_y = [<span class="number">0</span>]</span><br><span class="line">    ini_p = probs[<span class="number">0</span>]</span><br><span class="line">    cur_lab = labels[<span class="number">0</span>]</span><br><span class="line">    cnt_pos = <span class="number">0</span></span><br><span class="line">    cnt_neg = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> cur_lab == <span class="number">0</span>:</span><br><span class="line">        cnt_neg = <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        cnt_pos = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(probs)):</span><br><span class="line">        cur_p = probs[i]</span><br><span class="line">        <span class="keyword">if</span> cur_p!=ini_p:</span><br><span class="line">            points_x.append(float(cnt_neg)/actual_cnts[<span class="number">0</span>])</span><br><span class="line">            points_y.append(float(cnt_pos)/actual_cnts[<span class="number">1</span>])</span><br><span class="line">            ini_p = cur_p</span><br><span class="line">        <span class="keyword">if</span> labels[i]==<span class="number">0</span>:</span><br><span class="line">            cnt_neg+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cnt_pos+=<span class="number">1</span></span><br><span class="line">    points_x.append(float(cnt_neg)/actual_cnts[<span class="number">0</span>])</span><br><span class="line">    points_y.append(float(cnt_pos)/actual_cnts[<span class="number">1</span>])</span><br><span class="line">    fig = plt.figure()</span><br><span class="line">    ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">    ax.grid()</span><br><span class="line">    ax.plot(points_x,points_y ,marker=<span class="string">'o'</span>,linestyle=<span class="string">"--"</span>,markersize=<span class="number">10</span>, color=<span class="string">'r'</span>,linewidth=<span class="number">7</span>)</span><br><span class="line">    ax.axis([<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">for</span> i,c <span class="keyword">in</span> enumerate(string.ascii_uppercase[:len(points_x)]):</span><br><span class="line">        ax.text(points_x[i], points_y[i], <span class="string">"%s(%s,%s)"</span>%(c,points_x[i],points_y[i]), transform=ax.transAxes,</span><br><span class="line">      fontsize=<span class="number">16</span>,fontweight=<span class="string">"bold"</span>, va=<span class="string">'top'</span>)</span><br><span class="line">    plt.xlabel(<span class="string">"FPR"</span>)</span><br><span class="line">    plt.ylabel(<span class="string">"TPR"</span>)</span><br><span class="line">    plt.title(<span class="string">"ROC curve"</span>)</span><br><span class="line">    plt.show()</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    labels = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">    probs = [<span class="number">0.99</span>,<span class="number">0.97</span>,<span class="number">0.80</span>,<span class="number">0.75</span>,<span class="number">0.70</span>,<span class="number">0.69</span>,<span class="number">0.65</span>,<span class="number">0.63</span>,<span class="number">0.62</span>,<span class="number">0.55</span>,<span class="number">0.55</span>,<span class="number">0.50</span>,<span class="number">0.49</span>,<span class="number">0.47</span>,<span class="number">0.45</span>,<span class="number">0.40</span>,<span class="number">0.35</span>,<span class="number">0.33</span>,<span class="number">0.22</span>,<span class="number">0.11</span>]</span><br><span class="line">    ROC(labels,probs)</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1189,161 +643,11 @@ We can count the number of pairs of positive and negative samples in which $f(x_
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hao Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ViaVia">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/27/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-27T20:00:30+02:00">
-                2018-03-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/27/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/03/27/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/03/27/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -1351,6 +655,15 @@ We can count the number of pairs of positive and negative samples in which $f(x_
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -1371,8 +684,17 @@ We can count the number of pairs of positive and negative samples in which $f(x_
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -1432,6 +754,22 @@ We can count the number of pairs of positive and negative samples in which $f(x_
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mirror-question-pair-classification"><span class="nav-number">1.</span> <span class="nav-text">Mirror question pair classification</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-statement"><span class="nav-number">1.1.</span> <span class="nav-text">Problem statement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dataset-desciption"><span class="nav-number">1.2.</span> <span class="nav-text">Dataset desciption</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">1.3.</span> <span class="nav-text">Solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Traditional-method"><span class="nav-number">1.3.1.</span> <span class="nav-text">Traditional method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Feature-engineering"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Feature engineering</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deep-learning-method"><span class="nav-number">1.3.2.</span> <span class="nav-text">Deep learning method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CNN-method"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">CNN method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CNN-RNN-method"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">CNN+RNN method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BIMPM"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">BIMPM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ensemble"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">Ensemble</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1572,6 +910,10 @@ We can count the number of pairs of positive and negative samples in which $f(x_
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1595,6 +937,8 @@ We can count the number of pairs of positive and negative samples in which $f(x_
 
 		_hcwp.push({widget:"Bloggerstream", widget_id: 102572, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
+		
+		_hcwp.push({widget:"Stream", widget_id: 102572, xid: "2018/11/06/mirror-question-pair-detection/"});
 		
 
 		(function() {
