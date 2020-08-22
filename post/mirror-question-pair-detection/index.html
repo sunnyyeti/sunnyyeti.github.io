@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Mirror Question Pair Detection - ViaVia - A personal blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Hao" /><meta name="description" content="" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/mirror-question-pair-detection/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Mirror Question Pair Detection" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/mirror-question-pair-detection/" />
+<meta property="article:published_time" content="2020-08-23T01:14:24+02:00" />
+<meta property="article:modified_time" content="2020-08-23T01:14:24+02:00" />
+<meta itemprop="name" content="Mirror Question Pair Detection">
+<meta itemprop="description" content="">
+<meta itemprop="datePublished" content="2020-08-23T01:14:24+02:00" />
+<meta itemprop="dateModified" content="2020-08-23T01:14:24+02:00" />
+<meta itemprop="wordCount" content="2338">
+
+
+
+<meta itemprop="keywords" content="Siamese network,CNN,RNN,BIMPM," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mirror Question Pair Detection"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">ViaVia</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">ViaVia</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Mirror Question Pair Detection</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-23 </span>
+        <div class="post-category">
+            <a href="/categories/projects/"> Projects </a>
+            </div>
+          <span class="more-meta"> 2338 words </span>
+          <span class="more-meta"> 11 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#mirror-question-pair-classification">Mirror question pair classification</a>
+      <ul>
+        <li><a href="#problem-statement">Problem statement</a></li>
+        <li><a href="#dataset-desciption">Dataset desciption</a></li>
+        <li><a href="#solution">Solution</a>
+          <ul>
+            <li><a href="#traditional-method">Traditional method</a></li>
+            <li><a href="#deep-learning-method">Deep learning method</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="mirror-question-pair-classification">Mirror question pair classification</h1>
+<h2 id="problem-statement">Problem statement</h2>
+<p>This is an online competition hosted by one Chinese company which aims to predict whether a given pair of questions  actually share the same meaning semantically. Because of privacy, all original questions are encoded as sequences of char ID and word ID. Char may contain single Chinese word, single English letter, punctuation and space. Word may contain Chinese and English words, punctuation and space.</p>
+<h2 id="dataset-desciption">Dataset desciption</h2>
+<ul>
+<li>char_embed.txt<br>
+300-dimension char embedding vector trained by Google word2vec.</li>
+<li>word_embed.txt<br>
+300-dimension word embedding vector trained by Google word2vec.</li>
+<li>question.csv<br>
+Contains all questions in the train set and test set. Each question contains sequence of char ID and word ID.</li>
+<li>train.csv<br>
+Question pairs in the train set.</li>
+<li>test.csv<br>
+Question pairs in the test set.</li>
+</ul>
+<h2 id="solution">Solution</h2>
+<p>I tried both traditional methods and end-to-end deep learning models. Results show that deep learning models outperform traditional ones that in addition need a lot of hand-crafted features.</p>
+<h3 id="traditional-method">Traditional method</h3>
+<h4 id="feature-engineering">Feature engineering</h4>
+<p>The main idea is that we need to get the embedding vector of the sentence. There are mainly two ways, one is to synthesize the sentence embedding from word/char embeddings, and another one is to get the sentence embedding directly.</p>
+<p>Get the sentence embedding directly:</p>
+<ul>
+<li>words_3gram_sentence_tfidf_embedding</li>
+<li>chars_5gram_sentence_tfidf_embedding</li>
+<li>words_3gram_tfidf_SVD_sentence_embed</li>
+<li>chars_5gram_tfidf_SVD_sentence_embed</li>
+<li>words_1gram_tfidf_NMF_sentence_embed (Non-Negative Matrix Factorization)</li>
+<li>chars_1gram_tfidf_NMF_sentence_embed</li>
+<li>words_1gram_tf_LDA_sentence_embed (LatentDirichletAllocation)</li>
+<li>chars_1gram_tf_LDA_sentence_embed</li>
+</ul>
+<p>Synthesize the sentence embedding from word/char embedding.</p>
+<p>Methods to get the word/char embedding:</p>
+<ol>
+<li>word2vec word/char embedding supplied by the host</li>
+<li>glove word/char embedding trained by ourselves</li>
+<li>decompose the tf-idf matrix using SVD</li>
+</ol>
+<p>We tried three different weighting strategies.</p>
+<ol>
+<li>equally</li>
+<li>tf-idf linear weight</li>
+<li>tf-idf exp weight</li>
+</ol>
+<p>So all sentence embeddings we get by synthesis:</p>
+<ul>
+<li>word2vec_word_embed_to_sentence_embed_mode_equally</li>
+<li>word2vec_word_embed_to_sentence_embed_mode_tf_idf_exp</li>
+<li>word2vec_word_embed_to_sentence_embed_mode_tf_idf_linear</li>
+<li>word2vec_char_embed_to_sentence_embed_mode_equally</li>
+<li>word2vec_char_embed_to_sentence_embed_mode_tf_idf_exp</li>
+<li>word2vec_char_embed_to_sentence_embed_mode_tf_idf_linear</li>
+<li>glove_char_embed_to_sentence_embed_mode_equally</li>
+<li>glove_char_embed_to_sentence_embed_mode_tf_idf_exp</li>
+<li>glove_char_embed_to_sentence_embed_mode_tf_idf_linear</li>
+<li>glove_word_embed_to_sentence_embed_mode_equally</li>
+<li>glove_word_embed_to_sentence_embed_mode_tf_idf_exp</li>
+<li>glove_word_embed_to_sentence_embed_mode_tf_idf_linear</li>
+<li>words_3gram_tfidf_SVD_word_embed_to_sentence_embed_mode_equally</li>
+<li>words_3gram_tfidf_SVD_word_embed_to_sentence_embed_mode_tf_idf_exp</li>
+<li>words_3gram_tfidf_SVD_word_embed_to_sentence_embed_mode_tf_idf_linear</li>
+<li>chars_5gram_tfidf_SVD_char_embed_to_sentence_embed_mode_equally</li>
+<li>chars_5gram_tfidf_SVD_char_embed_to_sentence_embed_mode_tf_idf_exp</li>
+<li>chars_5gram_tfidf_SVD_char_embed_to_sentence_embed_mode_tf_idf_linear</li>
+</ul>
+<p>After getting the sentence embeddings, we can form features by manipulating embedding pairs. One is calculating some distance between these two embeddings, the other one is keeping the absolute difference of these two embedding vectors as features.</p>
+<p>The distance we tried for tf-idf sentence embedding:</p>
+<ul>
+<li>
+<p>cosine_similarity
+$$
+cos(x,y) = \frac{x^Ty}{||x||_2||y||_2}
+$$</p>
+</li>
+<li>
+<p>polynomial_kernel<br>
+The <strong><em>polynomial_kernel</em></strong> computes the degree-$d$ polynomial kernel between two vectors. The polynomial kernel represents the similarity between two vectors. Conceptually, the polynomial kernels considers not only the similarity between vectors under the same dimension, but also across dimensions. When used in machine learning algorithms, this allows to account for feature interaction.
+The polynomial kernel is defined as:
+$K(x,y) = (\gamma x^Ty+c_0)^d$, where $\gamma$ defaults to $\frac{1}{|x|}$, where $|x|$ means the number of elements in $x$; $c_0$ defaults to $1$; $d$ defaults to 3.</p>
+</li>
+<li>
+<p>sigmoid_kernel<br>
+The function <strong><em>sigmoid_kernel</em></strong> computes the sigmoid kernel between two vectors. The sigmoid kernel is also known as hyperbolic tangent, or Multilayer Perceptron (because, in the neural network field, it is often used as neuron activation function). It is defined as: $K(x,y)=tanh(\gamma x^Ty+c_0)$, where $\gamma$ defaults to $\frac{1}{|x|}$, where $|x|$ means the number of elements in $x$; $c_0$ defaults to $1$;</p>
+</li>
+<li>
+<p>rbf_kernel<br>
+The function <strong><em>rbf_kernel</em></strong> computes the radial basis function (RBF) kernel between two vectors. This kernel is defined as: $K(x,y) = exp(-\gamma ||x-y||_2^2)$, where $\gamma$ defaults to $\frac{1}{|x|}$, where $|x|$ means the number of elements in $x$.</p>
+</li>
+<li>
+<p>laplacian_kernel<br>
+The function <strong><em>laplacian_kernel</em></strong> is a variant on the radial basis function kernel defined as:$K(x,y) = exp(-\gamma ||x-y||_1)$, where $||x-y||_1$ is the Manhattan distance between the input vector and  $\gamma$ defaults to $\frac{1}{|x|}$, where $|x|$ means the number of elements in $x$.</p>
+</li>
+<li>
+<p>my_chi2_kernel<br>
+The <strong><em>chi squared kernel</em></strong> is given by $K(x,y)=exp(-\gamma \sum_{i}\frac{(x[i]-y[i])^2}{x[i]+y[i]})$, where $\gamma$ defaults to $1$. The data is assumed to be non-negative, so this kernel is only applied to tf-idf sentence embedding.</p>
+</li>
+<li>
+<p>euclidean<br>
+$K(x,y)=||x-y||_2$</p>
+</li>
+<li>
+<p>cityblock<br>
+$K(x,y)=||x-y||_1$</p>
+</li>
+<li>
+<p>WMD (Word Mover&rsquo;s Distance)<br>
+Assume sentence 1 is represented as bag of words $b_1= \lbrace w_1,w_2,\dots, w_n \rbrace$ and sentence 2 is represented as bag of words $b_2=\lbrace \bar w_1, \bar w_2, \dots, \bar w_m \rbrace$. Then it is defined as $K(b1,b2)=\sum_{i=1}^{n}\min_{j}D(w_i,\bar{w}_j)$, and $D$ is a function calculating distance between two word embeddings. It could be euclidean distance normally.</p>
+</li>
+</ul>
+<p>The distance we tried for non-tf-idf sentence embedding:</p>
+<ul>
+<li>cosine_similarity,</li>
+<li>linear_kernel<br>
+Linear kernel is defined as $K(x,y)=x^Ty$</li>
+<li>polynomial_kernel</li>
+<li>sigmoid_kernel</li>
+<li>rbf_kernel</li>
+<li>laplacian_kernel</li>
+<li>my_chi2_kernel</li>
+<li>euclidean</li>
+<li>cityblock</li>
+</ul>
+<p>The distance we tried for tf-idf sentence embedding(element is non-negative):</p>
+<ul>
+<li>cosine_similarity,</li>
+<li>polynomial_kernel</li>
+<li>sigmoid_kernel</li>
+<li>rbf_kernel</li>
+<li>laplacian_kernel</li>
+<li>euclidean</li>
+<li>cityblock</li>
+</ul>
+<p>The word embeeding we adopted to calculate the WMD distance:</p>
+<ul>
+<li>words_3gram_tfidf_SVD_word_embed</li>
+<li>word2vec_word_embed</li>
+<li>glove_word_embed.csv</li>
+<li>chars_5gram_tfidf_SVD_char_embed.csv</li>
+<li>word2vec_char_embed.csv</li>
+<li>glove_char_embed.csv</li>
+</ul>
+<p>We also calculate the absolute element-wise difference of two embeddings as features, and these features keep the original information in the embeddings. The embeddings used:</p>
+<ul>
+<li>words_3gram_tfidf_SVD_sentence_embed</li>
+<li>chars_5gram_tfidf_SVD_sentence_embed</li>
+<li>glove_char_embed_to_sentence_embed_mode_tf_idf_linear</li>
+<li>glove_word_embed_to_sentence_embed_mode_tf_idf_linear</li>
+<li>words_1gram_tf_LDA_sentence_embed</li>
+<li>chars_1gram_tf_LDA_sentence_embed</li>
+<li>chars_1gram_tfidf_NMF_sentence_embed</li>
+<li>words_1gram_tfidf_NMF_sentence_embed</li>
+</ul>
+<p>Also we calculate some meta features like:</p>
+<ul>
+<li>F.spair_len_s1</li>
+<li>F.spair_len_s2</li>
+<li>F.spair_len_dif_abs</li>
+<li>F.spair_len_dif_over_max</li>
+<li>F.spair_len_dif_over_min</li>
+<li>F.spair_len_dif_over_mean</li>
+<li>F.levenshtein</li>
+<li>F.if_starts_same</li>
+<li>F.if_ends_same</li>
+<li>F.num_commom_n_gram(i) for i in range(1,n+1)</li>
+<li>F.jaccard_till_n_gram(n)</li>
+</ul>
+<p>These are all features we used in traditional model. And the model we tried is LightGBM.</p>
+<h3 id="deep-learning-method">Deep learning method</h3>
+<p>We adopt the so-called siamese structure as our deep learning model.
+Generally speaking, siamese network consists of a pair of sub networks who share the same paramters. For a pair of questions, we pass one question through one sub net and second question through another sub net, then the outputs of the two networks are concatnated together and put in a fully connected layer. Finally the output of the sigmoid gives us the probability of that the two questions have the same meaning.</p>
+<h4 id="cnn">CNN</h4>
+<p>The sub network is CNN. 1D CNN for text looks like:</p>
+<div style="text-align:center"  ><img src ="https://imgur.com/1RWg9Mr.png"  width=780px/></div>
+<p>Max pooling along the length dimension makes sure that questions with different lengths have outputs of same length. Some key codes are attached here:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+    <span class="n">q1</span><span class="p">,</span><span class="n">q2</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1">## Split the question pairs</span>
+    <span class="n">q1_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nn_Embedding</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NxLxC -&gt; NxCxL</span>
+    <span class="n">q2_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nn_Embedding</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">q1_conv1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1d_size2</span><span class="p">(</span><span class="n">q1_embed</span><span class="p">))</span> <span class="c1">##NxCxL</span>
+    <span class="n">q1_pool1</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q1_conv1</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NxC</span>
+    <span class="n">q1_conv2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1d_size3</span><span class="p">(</span><span class="n">q1_embed</span><span class="p">))</span> <span class="c1">##NxCxL</span>
+    <span class="n">q1_pool2</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q1_conv2</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NxC</span>
+    <span class="n">q1_conv3</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1d_size4</span><span class="p">(</span><span class="n">q1_embed</span><span class="p">))</span> <span class="c1">##NxCxL</span>
+    <span class="n">q1_pool3</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q1_conv3</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NxC(100)</span>
+    <span class="n">q1_concat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q1_pool1</span><span class="p">,</span><span class="n">q1_pool2</span><span class="p">,</span><span class="n">q1_pool3</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1">## Nx(c1+c2...)[300]</span>
+
+    <span class="n">q2_conv1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1d_size2</span><span class="p">(</span><span class="n">q2_embed</span><span class="p">))</span> <span class="c1">##NxCxL</span>
+    <span class="n">q2_pool1</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q2_conv1</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NxC</span>
+    <span class="n">q2_conv2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1d_size3</span><span class="p">(</span><span class="n">q2_embed</span><span class="p">))</span> <span class="c1">##NxCxL</span>
+    <span class="n">q2_pool2</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q2_conv2</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NxC</span>
+    <span class="n">q2_conv3</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1d_size4</span><span class="p">(</span><span class="n">q2_embed</span><span class="p">))</span> <span class="c1">##NxCxL</span>
+    <span class="n">q2_pool3</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q2_conv3</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NxC(100)</span>
+    <span class="n">q2_concat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q2_pool1</span><span class="p">,</span><span class="n">q2_pool2</span><span class="p">,</span><span class="n">q2_pool3</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1">## Nx(c1+c2...)[300]</span>
+
+    <span class="n">q_concat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q1_concat</span><span class="p">,</span><span class="n">q2_concat</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1">##Nx600</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_hidden1</span><span class="p">(</span><span class="n">q_concat</span><span class="p">))</span>
+    <span class="n">h2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_hidden2</span><span class="p">(</span><span class="n">h1</span><span class="p">))</span>
+    <span class="n">outscore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_put</span><span class="p">(</span><span class="n">h2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">outscore</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="rnn">RNN</h4>
+<p>The subnetwork is two-layer bidirectional LSTM. A one-layer bidirectional RNN looks like:</p>
+<div style="text-align:center"  ><img src ="https://i.imgur.com/2CvTWBg.png"  width=780px/></div>
+<p>I utilize the <code>pack_padded_sequence</code> function from Pytorch to handle variable length inputs. Some key codes are attahced here:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_tensor</span><span class="p">):</span>
+        <span class="n">input_lengths</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nonzero</span><span class="p">())</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">))])</span>
+        <span class="n">input_lengths</span><span class="p">,</span> <span class="n">perm_idx</span> <span class="o">=</span> <span class="n">input_lengths</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">reverse_perm_idx</span> <span class="o">=</span> <span class="n">perm_idx</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">input_seqs</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="p">[</span><span class="n">perm_idx</span><span class="p">][:,</span> <span class="p">:</span><span class="n">input_lengths</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="n">input_seqs</span><span class="p">,</span> <span class="n">input_lengths</span><span class="p">,</span> <span class="n">reverse_perm_idx</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1">## Split the question pairs</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q1_lens</span><span class="p">,</span> <span class="n">q1_reverse_order_indx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+        <span class="n">q2</span><span class="p">,</span> <span class="n">q2_lens</span><span class="p">,</span> <span class="n">q2_reverse_order_indx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">q1_pad_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nn_Embedding</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>  <span class="c1">##NxLxC</span>
+        <span class="n">q2_pad_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nn_Embedding</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>  <span class="c1">##NxLxC</span>
+        <span class="n">q1_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_dropout</span><span class="p">(</span><span class="n">q1_pad_embed</span><span class="p">)</span>
+        <span class="n">q2_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_dropout</span><span class="p">(</span><span class="n">q2_pad_embed</span><span class="p">)</span>
+        <span class="n">q1_pack_pad_seq_embed</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="n">q1_embed</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">q1_lens</span><span class="p">)</span>
+        <span class="n">q2_pack_pad_seq_embed</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="n">q2_embed</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">q2_lens</span><span class="p">)</span>
+
+        <span class="n">q1_out</span><span class="p">,</span> <span class="n">q1_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">q1_pack_pad_seq_embed</span><span class="p">)</span>
+        <span class="n">q1h</span><span class="p">,</span> <span class="n">q1c</span> <span class="o">=</span> <span class="n">q1_hidden</span>
+
+        <span class="n">q2_out</span><span class="p">,</span> <span class="n">q2_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">q2_pack_pad_seq_embed</span><span class="p">)</span>
+        <span class="n">q2h</span><span class="p">,</span> <span class="n">q2c</span> <span class="o">=</span> <span class="n">q2_hidden</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bidirectional</span><span class="p">:</span>
+            <span class="n">q1_encode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q1h</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">q1h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">q2_encode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q2h</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">q2h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q1_encode</span> <span class="o">=</span> <span class="n">q1h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">q2_encode</span> <span class="o">=</span> <span class="n">q2h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">q1_encode_reverse</span> <span class="o">=</span> <span class="n">q1_encode</span><span class="p">[</span><span class="n">q1_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">q2_encode_reverse</span> <span class="o">=</span> <span class="n">q2_encode</span><span class="p">[</span><span class="n">q2_reverse_order_indx</span><span class="p">]</span>
+
+        <span class="n">q_pair_encode_q12</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q1_encode_reverse</span><span class="p">,</span> <span class="n">q2_encode_reverse</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1">##TODO augment q1,q2 ; q2,q1</span>
+        <span class="n">q_pair_encode_q21</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q2_encode_reverse</span><span class="p">,</span> <span class="n">q1_encode_reverse</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">q_pair_encode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q_pair_encode_q12</span><span class="p">,</span> <span class="n">q_pair_encode_q21</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">h1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear1_dropout</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear1</span><span class="p">(</span><span class="n">q_pair_encode</span><span class="p">)))</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear2</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span>
+        <span class="n">out1</span><span class="p">,</span> <span class="n">out2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">out1</span> <span class="o">+</span> <span class="n">out2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="cnnrnn">CNN+RNN</h4>
+<p>Add a CNN layer before RNN layer. The CNN layer is &ldquo;same padding&rdquo;. Some key codes are  attached here:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">input_tensor</span><span class="p">):</span>
+        <span class="n">input_lengths</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nonzero</span><span class="p">())</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">))])</span>
+        <span class="n">input_lengths</span><span class="p">,</span> <span class="n">perm_idx</span> <span class="o">=</span> <span class="n">input_lengths</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span><span class="n">reverse_perm_idx</span> <span class="o">=</span> <span class="n">perm_idx</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">input_seqs</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="p">[</span><span class="n">perm_idx</span><span class="p">][:,</span> <span class="p">:</span><span class="n">input_lengths</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="n">input_seqs</span><span class="p">,</span><span class="n">input_lengths</span><span class="p">,</span><span class="n">reverse_perm_idx</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="n">q1</span><span class="p">,</span><span class="n">q2</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1">## Split the question pairs</span>
+        <span class="n">q1</span><span class="p">,</span><span class="n">q1_lens</span><span class="p">,</span><span class="n">q1_reverse_order_indx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+        <span class="n">q2</span><span class="p">,</span><span class="n">q2_lens</span><span class="p">,</span><span class="n">q2_reverse_order_indx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">q1_pad_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nn_Embedding</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NxLxC-&gt;NxCxL</span>
+        <span class="n">q2_pad_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nn_Embedding</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NxLxC-&gt;NxCxL</span>
+        <span class="n">q1_conv_out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_conv</span><span class="p">(</span><span class="n">q1_pad_embed</span><span class="p">)))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">q2_conv_out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_conv</span><span class="p">(</span><span class="n">q2_pad_embed</span><span class="p">)))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">q1_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_dropout</span><span class="p">(</span><span class="n">q1_conv_out</span><span class="p">)</span>
+        <span class="n">q2_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_dropout</span><span class="p">(</span><span class="n">q2_conv_out</span><span class="p">)</span>
+        <span class="n">q1_pack_pad_seq_embed</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="n">q1_embed</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">q1_lens</span><span class="p">)</span>
+        <span class="n">q2_pack_pad_seq_embed</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="n">q2_embed</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">q2_lens</span><span class="p">)</span>
+
+        <span class="n">q1_out</span><span class="p">,</span><span class="n">q1_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">q1_pack_pad_seq_embed</span><span class="p">)</span>
+        <span class="n">q1h</span><span class="p">,</span><span class="n">q1c</span> <span class="o">=</span> <span class="n">q1_hidden</span>
+
+        <span class="n">q2_out</span><span class="p">,</span><span class="n">q2_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">q2_pack_pad_seq_embed</span><span class="p">)</span>
+        <span class="n">q2h</span><span class="p">,</span><span class="n">q2c</span> <span class="o">=</span> <span class="n">q2_hidden</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bidirectional</span><span class="p">:</span>
+            <span class="n">q1_encode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q1h</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span><span class="n">q1h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">q2_encode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q2h</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span><span class="n">q2h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q1_encode</span> <span class="o">=</span> <span class="n">q1h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">q2_encode</span> <span class="o">=</span> <span class="n">q2h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">q1_encode_reverse</span> <span class="o">=</span> <span class="n">q1_encode</span><span class="p">[</span><span class="n">q1_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">q2_encode_reverse</span> <span class="o">=</span> <span class="n">q2_encode</span><span class="p">[</span><span class="n">q2_reverse_order_indx</span><span class="p">]</span>
+
+        <span class="n">q_pair_encode_q12</span><span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q1_encode_reverse</span><span class="p">,</span><span class="n">q2_encode_reverse</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="c1">##TODO augment q1,q2 ; q2,q1</span>
+        <span class="n">q_pair_encode_q21</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q2_encode_reverse</span><span class="p">,</span><span class="n">q1_encode_reverse</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">q_pair_encode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q_pair_encode_q12</span><span class="p">,</span><span class="n">q_pair_encode_q21</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">h1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear1_dropout</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear1</span><span class="p">(</span><span class="n">q_pair_encode</span><span class="p">)))</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear2</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span>
+        <span class="n">out1</span><span class="p">,</span><span class="n">out2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">out1</span><span class="o">+</span><span class="n">out2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="bimpm">BIMPM</h4>
+<p>We do not include any correlation between two sub networks in previous versions. BIMPM introduces the correlation between two networks. The reference paper: <a href="https://arxiv.org/pdf/1702.03814.pdf">Bilateral Multi-Perspective Matching for Natural Language Sentences</a>
+The general architecture looks like:</p>
+<div style="text-align:center"  ><img src ="https://i.imgur.com/FUYgU2Y.png"  width=780px/></div>
+<p>The key part is the matching layer. The goal of this layer is to compare each contextual embedding (time-step) of one sentence against all contextual embeddings (time-steps) of the other sentence. First, we define a multi-perspective consine matching function $f_m$ to compare two vectors:
+$$m=f_m(v_1,v_2;W)$$
+where $v_1$ and $v_2$ are two $d$-dimensional vectors, $W$ is a trainable parameter with the shape $l*d$, $l$ is the number of perspective and the returned value $m$ is $l$-dimensional vector, where $m_k=cosine(v_1 \odot W_k,v_2\odot W_k)$. $\odot$ is element-wise multiplication and $W_k$ is the $k_{th}$ row of $W$. Four kind of matchings are defined here:</p>
+<div style="text-align:center"  ><img src ="https://i.imgur.com/XSVsr0E.png"  width=780px/></div>
+<ul>
+<li>
+<p>Full matching 
+$$\overrightarrow{m_i}^{full} = f_m(\overrightarrow{h_i}^p,\overrightarrow{h_N}^q;W^1)$$
+$$\overleftarrow{m_i}^{full} = f_m(\overleftarrow{h_i}^p,\overleftarrow{h_1}^q;W^2)$$</p>
+</li>
+<li>
+<p>Maxpooling-Matching
+$$\overrightarrow{m_i}^{max} = max_{j\in(1&hellip;N)}f_m(\overrightarrow{h_i}^p,\overrightarrow{h_j}^q;W^3)$$</p>
+<p>$$\overleftarrow{m_i}^{max} = max_{j\in(1&hellip;N)}f_m(\overleftarrow{h_i}^p,\overleftarrow{h_j}^q;W^4)$$</p>
+</li>
+<li>
+<p>Attentive-Matching
+$$\overrightarrow{a_{i,j}} = cosine(\overrightarrow{h_i}^p,\overrightarrow{h_j}^q) \ \ \ \ \ \ \ \ \ \ j=1,2,3&hellip;N$$</p>
+</li>
+</ul>
+<p>$$\overleftarrow{a_{i,j}} = cosine(\overleftarrow{h_i}^p,\overleftarrow{h_j}^q) \ \ \ \ \ \ \ \ \ \ j=1,2,3&hellip;N$$</p>
+<p>$$\overrightarrow{h_i}^{mean} = \frac{\sum_j^N \overrightarrow{a_{i,j}}*\overrightarrow{h_j}^q}{\sum_j^N \overrightarrow{a_{i,j}}}$$</p>
+<p>$$\overleftarrow{h_i}^{mean} = \frac{\sum_j^N \overleftarrow{a_{i,j}}*\overleftarrow{h_j}^q}{\sum_j^N \overleftarrow{a_{i,j}}}$$</p>
+<p>$$\overrightarrow{m_i}^{att} = f_m(\overrightarrow{h_i}^p,\overrightarrow{h_i}^{mean};W^5)$$</p>
+<p>$$\overleftarrow{m_i}^{att} = f_m(\overleftarrow{h_i}^p,\overleftarrow{h_i}^{mean};W^6)$$</p>
+<ul>
+<li>
+<p>Max-Attentive-Matching</p>
+<p>This strategy is similar to the attentive-Matching strategy. However, instead of taking the weighed sum of all the contextual embeddings as the attentive vector, we pick the contextual embedding with the highest cosine similarity as the attentive vector.</p>
+</li>
+</ul>
+<p>We apply all these four matching strategies to each timestep of the sentence P, and concatenate the generated eight
+vectors as the matching vector for each time-step of P. We
+also perform the same process for the reverse matching direction.</p>
+<p>Some key codes of BIMPM are attached here:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">full_matching</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">q1_NLC</span><span class="p">,</span><span class="n">q2_NC</span><span class="p">,</span><span class="n">W</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">        :param q1_NLC:
+</span><span class="s2">        :param q2_NC:
+</span><span class="s2">        :return:NLP(p is number of perspective)
+</span><span class="s2">        &#34;&#34;&#34;</span>
+        <span class="n">q1_NL1C</span> <span class="o">=</span> <span class="n">q1_NLC</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">W_11PC</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">q1_NLPC</span> <span class="o">=</span> <span class="n">q1_NL1C</span><span class="o">*</span><span class="n">W_11PC</span>
+        <span class="n">q2_N11C</span> <span class="o">=</span> <span class="n">q2_NC</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">q2_N1PC</span> <span class="o">=</span> <span class="n">q2_N11C</span><span class="o">*</span><span class="n">W_11PC</span>
+        <span class="n">q1_mm_q2_NLPC</span> <span class="o">=</span> <span class="n">q1_NLPC</span><span class="o">*</span><span class="n">q2_N1PC</span>
+        <span class="n">q1_mm_q2_NLP</span> <span class="o">=</span> <span class="n">q1_mm_q2_NLPC</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">q1_NLPC_norm</span> <span class="o">=</span> <span class="n">q1_NLPC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">q2_N1PC_norm</span> <span class="o">=</span> <span class="n">q2_N1PC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">q1_mm_q2_NLP</span><span class="o">/</span><span class="p">((</span><span class="n">q1_NLPC_norm</span><span class="o">*</span><span class="n">q2_N1PC_norm</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">))</span>
+
+
+    <span class="k">def</span> <span class="nf">maxpool_matching</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">q1_NLC</span><span class="p">,</span><span class="n">q2_NLC</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">q2_lengths</span><span class="p">):</span>
+        <span class="n">compare_L</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">q2_NLC</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">q1_NLC</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">q1_NLC</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">number_perspective</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">q2_NLC</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)):</span>
+            <span class="n">tmp_h_NC</span> <span class="o">=</span> <span class="n">q2_NLC</span><span class="p">[:,</span><span class="n">l</span><span class="p">,:]</span>
+            <span class="n">compare_L</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_matching</span><span class="p">(</span><span class="n">q1_NLC</span><span class="p">,</span><span class="n">tmp_h_NC</span><span class="p">,</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">q1_NLC</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">q1_NLC</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">number_perspective</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">q2_lengths</span><span class="p">):</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">compare_L</span><span class="p">[:</span><span class="n">l</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+
+    <span class="k">def</span> <span class="nf">attentive_matching</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">q1_NLC</span><span class="p">,</span><span class="n">q2_NLC</span><span class="p">,</span><span class="n">W</span><span class="p">):</span>
+        <span class="n">q1_NLC_norm</span> <span class="o">=</span> <span class="n">q1_NLC</span><span class="o">/</span><span class="p">(</span><span class="n">q1_NLC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">))</span>
+        <span class="n">q2_NLC_norm</span> <span class="o">=</span> <span class="n">q2_NLC</span><span class="o">/</span><span class="p">(</span><span class="n">q2_NLC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">))</span>
+        <span class="n">q2_NCL_norm</span> <span class="o">=</span> <span class="n">q2_NLC_norm</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">q1_q2_NLL</span> <span class="o">=</span> <span class="n">q1_NLC_norm</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">q2_NCL_norm</span><span class="p">)</span>
+        <span class="n">q1_q2_NLL_norm</span> <span class="o">=</span> <span class="n">q1_q2_NLL</span><span class="o">/</span><span class="n">q1_q2_NLL</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
+        <span class="n">q1_L_mean_NLC</span> <span class="o">=</span> <span class="n">q1_q2_NLL_norm</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">q2_NLC</span><span class="p">)</span>
+
+        <span class="n">q1_NLC_exp_NL1C</span> <span class="o">=</span> <span class="n">q1_NLC</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">W_exp_11PC</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">q1_NLPC</span> <span class="o">=</span> <span class="n">q1_NLC_exp_NL1C</span> <span class="o">*</span> <span class="n">W_exp_11PC</span>
+
+        <span class="n">q1_L_mean_NLPC</span> <span class="o">=</span> <span class="n">q1_L_mean_NLC</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span> <span class="n">W_exp_11PC</span> <span class="c1">##NL1C * 11PC</span>
+
+        <span class="n">q1_L_mean_NLP_sum</span> <span class="o">=</span> <span class="p">(</span><span class="n">q1_NLPC</span><span class="o">*</span><span class="n">q1_L_mean_NLPC</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="c1">##NLP</span>
+        <span class="n">q1_NLPC_norm</span> <span class="o">=</span> <span class="n">q1_NLPC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="c1">##NLP</span>
+        <span class="n">q1_L_mean_NLPC_norm</span> <span class="o">=</span> <span class="n">q1_L_mean_NLPC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="c1">##NLP</span>
+
+        <span class="k">return</span> <span class="n">q1_L_mean_NLP_sum</span><span class="o">/</span><span class="p">((</span><span class="n">q1_NLPC_norm</span><span class="o">*</span><span class="n">q1_L_mean_NLPC_norm</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">max_attentive_matching</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">q1_NLC</span><span class="p">,</span><span class="n">q2_NLC</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">q2_lengths</span><span class="p">):</span>
+        <span class="n">q1_NLC_norm</span> <span class="o">=</span> <span class="n">q1_NLC</span><span class="o">/</span><span class="p">(</span><span class="n">q1_NLC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">))</span>
+        <span class="n">q2_NLC_norm</span> <span class="o">=</span> <span class="n">q2_NLC</span><span class="o">/</span><span class="p">(</span><span class="n">q2_NLC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">))</span>
+        <span class="n">q2_NCL_norm</span> <span class="o">=</span> <span class="n">q2_NLC_norm</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">q1_q2_NLL_cosine</span> <span class="o">=</span> <span class="n">q1_NLC_norm</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">q2_NCL_norm</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">q1_NLC</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">q1_NLC</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">q1_NLC</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="c1">##NLC</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">q2_lengths</span><span class="p">):</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">q1_q2_NLL_cosine</span><span class="p">[</span><span class="n">i</span><span class="p">,:,:</span><span class="n">l</span><span class="p">]</span>
+            <span class="n">inds</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">q2_NLC</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">inds</span><span class="p">,:]</span>
+
+        <span class="n">q1_NLC_exp_NL1C</span> <span class="o">=</span> <span class="n">q1_NLC</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">W_exp_11PC</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">q1_NLPC</span> <span class="o">=</span> <span class="n">q1_NLC_exp_NL1C</span> <span class="o">*</span> <span class="n">W_exp_11PC</span>
+
+        <span class="n">q1_max_NLPC</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span> <span class="n">W_exp_11PC</span> <span class="c1">##NL1C * 11PC</span>
+
+        <span class="n">q1_max_NLP_sum</span> <span class="o">=</span> <span class="p">(</span><span class="n">q1_NLPC</span><span class="o">*</span><span class="n">q1_max_NLPC</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="c1">##NLP</span>
+        <span class="n">q1_NLPC_norm</span> <span class="o">=</span> <span class="n">q1_NLPC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="c1">##NLP</span>
+        <span class="n">q1_max_NLPC_norm</span> <span class="o">=</span> <span class="n">q1_max_NLPC</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="c1">##NLP</span>
+
+        <span class="k">return</span> <span class="n">q1_max_NLP_sum</span><span class="o">/</span><span class="p">((</span><span class="n">q1_NLPC_norm</span><span class="o">*</span><span class="n">q1_max_NLPC_norm</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">))</span>
+
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="nb">input</span><span class="p">):</span>
+        <span class="n">q1</span><span class="p">,</span><span class="n">q2</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1">## Split the question pairs</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q1_lens</span><span class="p">,</span> <span class="n">q1_perm_idx</span><span class="p">,</span> <span class="n">q1_reverse_order_indx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+        <span class="n">q2</span><span class="p">,</span> <span class="n">q2_lens</span><span class="p">,</span> <span class="n">q2_perm_idx</span><span class="p">,</span> <span class="n">q2_reverse_order_indx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">q1_pad_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nn_Embedding</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span><span class="c1">##NLC</span>
+        <span class="n">q2_pad_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nn_Embedding</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span><span class="c1">##NLC</span>
+        <span class="n">q1_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_drop</span><span class="p">(</span><span class="n">q1_pad_embed</span><span class="p">)</span>
+        <span class="n">q2_embed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_drop</span><span class="p">(</span><span class="n">q2_pad_embed</span><span class="p">)</span>
+        <span class="n">q1_pack_pad_seq_embed</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="n">q1_embed</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">q1_lens</span><span class="p">)</span>
+        <span class="n">q2_pack_pad_seq_embed</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="n">q2_embed</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">q2_lens</span><span class="p">)</span>
+        <span class="c1">##Q1</span>
+        <span class="n">q1_out</span><span class="p">,</span><span class="n">q1_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crl</span><span class="p">(</span><span class="n">q1_pack_pad_seq_embed</span><span class="p">)</span>
+        <span class="n">pad_q1_out</span> <span class="o">=</span> <span class="n">pad_packed_sequence</span><span class="p">(</span><span class="n">q1_out</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">q1h</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q1_hidden</span>
+        <span class="n">pad_q1_forward</span><span class="p">,</span><span class="n">pad_q1_back</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">pad_q1_out</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="c1">##NLC</span>
+        <span class="n">h_q1_forward</span> <span class="o">=</span> <span class="n">q1h</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">h_q1_back</span> <span class="o">=</span> <span class="n">q1h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">pad_q1_forward_orig</span> <span class="o">=</span> <span class="n">pad_q1_forward</span><span class="p">[</span><span class="n">q1_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">pad_q1_back_orig</span> <span class="o">=</span> <span class="n">pad_q1_back</span><span class="p">[</span><span class="n">q1_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">h_q1_forward_orig</span> <span class="o">=</span> <span class="n">h_q1_forward</span><span class="p">[</span><span class="n">q1_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">h_q1_back_orig</span> <span class="o">=</span> <span class="n">h_q1_back</span><span class="p">[</span><span class="n">q1_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">q1_lens_orig</span> <span class="o">=</span> <span class="n">q1_lens</span><span class="p">[</span><span class="n">q1_reverse_order_indx</span><span class="p">]</span>
+        <span class="c1">##Q2</span>
+        <span class="n">q2_out</span><span class="p">,</span><span class="n">q2_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crl</span><span class="p">(</span><span class="n">q2_pack_pad_seq_embed</span><span class="p">)</span>
+        <span class="n">pad_q2_out</span> <span class="o">=</span> <span class="n">pad_packed_sequence</span><span class="p">(</span><span class="n">q2_out</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">q2h</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q2_hidden</span>
+        <span class="n">pad_q2_forward</span><span class="p">,</span><span class="n">pad_q2_back</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">pad_q2_out</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">2</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="c1">##NLC</span>
+        <span class="n">h_q2_forward</span> <span class="o">=</span> <span class="n">q2h</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">h_q2_back</span> <span class="o">=</span> <span class="n">q2h</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">pad_q2_forward_orig</span> <span class="o">=</span> <span class="n">pad_q2_forward</span><span class="p">[</span><span class="n">q2_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">pad_q2_back_orig</span> <span class="o">=</span> <span class="n">pad_q2_back</span><span class="p">[</span><span class="n">q2_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">h_q2_forward_orig</span> <span class="o">=</span> <span class="n">h_q2_forward</span><span class="p">[</span><span class="n">q2_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">h_q2_back_orig</span> <span class="o">=</span> <span class="n">h_q2_back</span><span class="p">[</span><span class="n">q2_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">q2_lens_orig</span> <span class="o">=</span> <span class="n">q2_lens</span><span class="p">[</span><span class="n">q2_reverse_order_indx</span><span class="p">]</span>
+
+        <span class="n">q1_for_full_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_matching</span><span class="p">(</span><span class="n">pad_q1_forward_orig</span><span class="p">,</span><span class="n">h_q2_forward_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW1</span><span class="p">)</span>
+        <span class="n">q1_back_full_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_matching</span><span class="p">(</span><span class="n">pad_q1_back_orig</span><span class="p">,</span><span class="n">h_q2_back_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW2</span><span class="p">)</span>
+        <span class="n">q1_for_maxpool_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxpool_matching</span><span class="p">(</span><span class="n">pad_q1_forward_orig</span><span class="p">,</span><span class="n">pad_q2_forward_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW3</span><span class="p">,</span><span class="n">q2_lens_orig</span><span class="p">)</span>
+        <span class="n">q1_back_maxpool_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxpool_matching</span><span class="p">(</span><span class="n">pad_q1_back_orig</span><span class="p">,</span><span class="n">pad_q2_back_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW4</span><span class="p">,</span><span class="n">q2_lens_orig</span><span class="p">)</span>
+        <span class="n">q1_for_att_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attentive_matching</span><span class="p">(</span><span class="n">pad_q1_forward_orig</span><span class="p">,</span><span class="n">pad_q2_forward_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW5</span><span class="p">)</span>
+        <span class="n">q1_back_att_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attentive_matching</span><span class="p">(</span><span class="n">pad_q1_back_orig</span><span class="p">,</span><span class="n">pad_q2_back_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW6</span><span class="p">)</span>
+        <span class="n">q1_for_maxatt_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_attentive_matching</span><span class="p">(</span><span class="n">pad_q1_forward_orig</span><span class="p">,</span><span class="n">pad_q2_forward_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW7</span><span class="p">,</span><span class="n">q2_lens_orig</span><span class="p">)</span>
+        <span class="n">q1_back_maxatt_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_attentive_matching</span><span class="p">(</span><span class="n">pad_q1_back_orig</span><span class="p">,</span><span class="n">pad_q2_back_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW8</span><span class="p">,</span><span class="n">q2_lens_orig</span><span class="p">)</span>
+
+        <span class="n">q2_for_full_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_matching</span><span class="p">(</span><span class="n">pad_q2_forward_orig</span><span class="p">,</span><span class="n">h_q1_forward_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW1</span><span class="p">)</span>
+        <span class="n">q2_back_full_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_matching</span><span class="p">(</span><span class="n">pad_q2_back_orig</span><span class="p">,</span><span class="n">h_q1_back_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW2</span><span class="p">)</span>
+        <span class="n">q2_for_maxpool_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxpool_matching</span><span class="p">(</span><span class="n">pad_q2_forward_orig</span><span class="p">,</span><span class="n">pad_q1_forward_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW3</span><span class="p">,</span><span class="n">q1_lens_orig</span><span class="p">)</span>
+        <span class="n">q2_back_maxpool_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxpool_matching</span><span class="p">(</span><span class="n">pad_q2_back_orig</span><span class="p">,</span><span class="n">pad_q1_back_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW4</span><span class="p">,</span><span class="n">q1_lens_orig</span><span class="p">)</span>
+        <span class="n">q2_for_att_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attentive_matching</span><span class="p">(</span><span class="n">pad_q2_forward_orig</span><span class="p">,</span><span class="n">pad_q1_forward_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW5</span><span class="p">)</span>
+        <span class="n">q2_back_att_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attentive_matching</span><span class="p">(</span><span class="n">pad_q2_back_orig</span><span class="p">,</span><span class="n">pad_q1_back_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW6</span><span class="p">)</span>
+        <span class="n">q2_for_maxatt_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_attentive_matching</span><span class="p">(</span><span class="n">pad_q2_forward_orig</span><span class="p">,</span><span class="n">pad_q1_forward_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW7</span><span class="p">,</span><span class="n">q1_lens_orig</span><span class="p">)</span>
+        <span class="n">q2_back_maxatt_matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_attentive_matching</span><span class="p">(</span><span class="n">pad_q2_back_orig</span><span class="p">,</span><span class="n">pad_q1_back_orig</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">MW8</span><span class="p">,</span><span class="n">q1_lens_orig</span><span class="p">)</span>
+
+        <span class="n">q1_agg</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">q1_for_full_matching</span><span class="p">,</span>
+                            <span class="n">q1_back_full_matching</span><span class="p">,</span>
+                            <span class="n">q1_for_maxpool_matching</span><span class="p">,</span>
+                            <span class="n">q1_back_maxpool_matching</span><span class="p">,</span>
+                            <span class="n">q1_for_att_matching</span><span class="p">,</span>
+                            <span class="n">q1_back_att_matching</span><span class="p">,</span>
+                            <span class="n">q1_for_maxatt_matching</span><span class="p">,</span>
+                            <span class="n">q1_back_maxatt_matching</span>
+                             <span class="p">],</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">##NXLX8P</span>
+        <span class="c1">#print(&#34;q1_agg&#34;)</span>
+        <span class="c1">#print(q1_agg.size())</span>
+        <span class="n">q2_agg</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span>
+            <span class="n">q2_for_full_matching</span><span class="p">,</span>
+            <span class="n">q2_back_full_matching</span><span class="p">,</span>
+            <span class="n">q2_for_maxpool_matching</span><span class="p">,</span>
+            <span class="n">q2_back_maxpool_matching</span><span class="p">,</span>
+            <span class="n">q2_for_att_matching</span><span class="p">,</span>
+            <span class="n">q2_back_att_matching</span><span class="p">,</span>
+            <span class="n">q2_for_maxatt_matching</span><span class="p">,</span>
+            <span class="n">q2_back_maxatt_matching</span>
+        <span class="p">],</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="c1">##NXLX8P</span>
+        <span class="c1">#print(&#34;q2_agg&#34;)</span>
+        <span class="c1">#print(q2_agg.size())</span>
+        <span class="n">q1_agg_order</span> <span class="o">=</span> <span class="n">q1_agg</span><span class="p">[</span><span class="n">q1_perm_idx</span><span class="p">]</span>
+        <span class="n">q2_agg_order</span> <span class="o">=</span> <span class="n">q2_agg</span><span class="p">[</span><span class="n">q2_perm_idx</span><span class="p">]</span>
+        <span class="n">q1_pack_pad_agg_order</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="n">q1_agg_order</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">q1_lens</span><span class="p">)</span>
+        <span class="n">q2_pack_pad_agg_order</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span><span class="n">q2_agg_order</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">lengths</span><span class="o">=</span><span class="n">q2_lens</span><span class="p">)</span>
+
+        <span class="n">q1_agout</span><span class="p">,</span><span class="n">q1_aghidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">al</span><span class="p">(</span><span class="n">q1_pack_pad_agg_order</span><span class="p">)</span>
+        <span class="n">q1agh</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q1_aghidden</span>
+
+        <span class="n">q2_agout</span><span class="p">,</span><span class="n">q2_aghidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">al</span><span class="p">(</span><span class="n">q2_pack_pad_agg_order</span><span class="p">)</span>
+        <span class="n">q2agh</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">q2_aghidden</span>
+
+
+        <span class="n">q1_agencode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q1agh</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">q1agh</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">q2_agencode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q2agh</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">q2agh</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">q1_encode_reverse</span> <span class="o">=</span> <span class="n">q1_agencode</span><span class="p">[</span><span class="n">q1_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">q2_encode_reverse</span> <span class="o">=</span> <span class="n">q2_agencode</span><span class="p">[</span><span class="n">q2_reverse_order_indx</span><span class="p">]</span>
+        <span class="n">q_pair_encode_q12</span><span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q1_encode_reverse</span><span class="p">,</span><span class="n">q2_encode_reverse</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">hid1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear1_drop</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear1</span><span class="p">(</span><span class="n">q_pair_encode_q12</span><span class="p">)))</span>
+        <span class="n">hid2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear2_drop</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear2</span><span class="p">(</span><span class="n">hid1</span><span class="p">)))</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear3</span><span class="p">(</span><span class="n">hid2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="ensemble">Ensemble</h4>
+<p>Finally ensemble is adopted to achieve the best score.</p>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/siamese-network/">Siamese network</a>
+          <a href="/tags/cnn/">CNN</a>
+          <a href="/tags/rnn/">RNN</a>
+          <a href="/tags/bimpm/">BIMPM</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/understanding-roc-and-auc/">
+            <span class="next-text nav-default"> ROC and AUC</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Hao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
