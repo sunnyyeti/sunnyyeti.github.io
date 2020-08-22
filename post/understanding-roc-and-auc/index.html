@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> ROC and AUC - ViaVia - A personal blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Hao" /><meta name="description" content="ROC, which stands for receiver operating characteristic, is a commonly used criteria to measure performance of a classifier.
+Preliminary knowledge Before introducing the concept of ROC, we need to firstly know some basics. Here, take a binary classifier as an example(logistic regression, random forest etc.), there are totally four situations when doing prediction.
+ TP(true positive): precdict a positive sample as positive FP(false positive): predict a negative sample as positive TN(true negative): predict a negative sample as negative FN(false negative): predict a positive sample as negative  Now we let TP, FP, TN, FN represent the number of samples in corresponding situation and let 1 be positive label and 0 be negative label, then we can get the following table:" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/understanding-roc-and-auc/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content=" ROC and AUC" />
+<meta property="og:description" content="ROC, which stands for receiver operating characteristic, is a commonly used criteria to measure performance of a classifier.
+Preliminary knowledge Before introducing the concept of ROC, we need to firstly know some basics. Here, take a binary classifier as an example(logistic regression, random forest etc.), there are totally four situations when doing prediction.
+ TP(true positive): precdict a positive sample as positive FP(false positive): predict a negative sample as positive TN(true negative): predict a negative sample as negative FN(false negative): predict a positive sample as negative  Now we let TP, FP, TN, FN represent the number of samples in corresponding situation and let 1 be positive label and 0 be negative label, then we can get the following table:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/understanding-roc-and-auc/" />
+<meta property="article:published_time" content="2020-08-23T00:10:13+02:00" />
+<meta property="article:modified_time" content="2020-08-23T00:10:13+02:00" />
+<meta itemprop="name" content=" ROC and AUC">
+<meta itemprop="description" content="ROC, which stands for receiver operating characteristic, is a commonly used criteria to measure performance of a classifier.
+Preliminary knowledge Before introducing the concept of ROC, we need to firstly know some basics. Here, take a binary classifier as an example(logistic regression, random forest etc.), there are totally four situations when doing prediction.
+ TP(true positive): precdict a positive sample as positive FP(false positive): predict a negative sample as positive TN(true negative): predict a negative sample as negative FN(false negative): predict a positive sample as negative  Now we let TP, FP, TN, FN represent the number of samples in corresponding situation and let 1 be positive label and 0 be negative label, then we can get the following table:">
+<meta itemprop="datePublished" content="2020-08-23T00:10:13+02:00" />
+<meta itemprop="dateModified" content="2020-08-23T00:10:13+02:00" />
+<meta itemprop="wordCount" content="1443">
+
+
+
+<meta itemprop="keywords" content="ROC,AUC," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=" ROC and AUC"/>
+<meta name="twitter:description" content="ROC, which stands for receiver operating characteristic, is a commonly used criteria to measure performance of a classifier.
+Preliminary knowledge Before introducing the concept of ROC, we need to firstly know some basics. Here, take a binary classifier as an example(logistic regression, random forest etc.), there are totally four situations when doing prediction.
+ TP(true positive): precdict a positive sample as positive FP(false positive): predict a negative sample as positive TN(true negative): predict a negative sample as negative FN(false negative): predict a positive sample as negative  Now we let TP, FP, TN, FN represent the number of samples in corresponding situation and let 1 be positive label and 0 be negative label, then we can get the following table:"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">ViaVia</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">ViaVia</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"> ROC and AUC</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-23 </span>
+        <div class="post-category">
+            <a href="/categories/machine-learning/"> Machine learning </a>
+            </div>
+          <span class="more-meta"> 1443 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#preliminary-knowledge">Preliminary knowledge</a></li>
+        <li><a href="#how-to-draw-a-roc">How to draw a ROC</a></li>
+        <li><a href="#auc">AUC</a>
+          <ul>
+            <li><a href="#what-is-auc">What is AUC</a></li>
+            <li><a href="#how-to-calculate--auc">How to calculate  AUC</a></li>
+            <li><a href="#another-interpretation-of-auc">Another interpretation of AUC</a></li>
+          </ul>
+        </li>
+        <li><a href="#python-script-to-draw-roc">Python script to draw ROC</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>ROC, which stands for <strong>receiver operating characteristic</strong>, is a commonly used criteria to measure performance of a classifier.</p>
+<h2 id="preliminary-knowledge">Preliminary knowledge</h2>
+<p>Before introducing the concept of ROC, we need to firstly know some basics. Here, take a binary classifier as an example(logistic regression, random forest etc.), there are totally four situations when doing prediction.</p>
+<ul>
+<li>TP(true positive): precdict a <strong>positive</strong> sample as <strong>positive</strong></li>
+<li>FP(false positive): predict a <strong>negative</strong> sample as <strong>positive</strong></li>
+<li>TN(true negative): predict a <strong>negative</strong> sample as <strong>negative</strong></li>
+<li>FN(false negative): predict a <strong>positive</strong> sample as <strong>negative</strong></li>
+</ul>
+<p>Now we let <strong>TP</strong>, <strong>FP</strong>, <strong>TN</strong>, <strong>FN</strong> represent the number of samples in corresponding situation and let <strong>1</strong> be positive label and <strong>0</strong> be negative label, then we can get the following table:</p>
+<table>
+  <tr>
+    <td></td>
+    <td></td>
+    <td colspan="2">Predicted label</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>1</td>
+    <td>0</td>
+    <td>Aggregate</td>
+  </tr>
+  <tr>
+    <td rowspan="2"> Ground truth label</td>
+    <td>1</td>
+    <td>TP</td>
+    <td>FN</td>
+    <td>Actual positive(TP+FN)</td>
+  </tr>
+ <tr>
+        <td>0</td>
+        <td>FP</td>
+        <td>TN</td>
+        <td>Actual negative(FP+TN)</td>
+  </tr>
+   <tr>
+        <td></td>
+        <td>Aggregate</td>
+        <td>Predicted positive(TP+FP)</td>
+        <td>Predicted negative(FN+TN)</td>
+        <td>Total(TP+FP+TN+FN)</td>
+  </tr>
+</table>
+<p>Now we give some definitions:</p>
+<ul>
+<li>TPR(True positive rate): $TP/(TP+FN)$</li>
+<li>FPR(False positive rate): $FP/(FP+TN)$</li>
+<li>TNR(True negative rate): $TN/(TN+FP)$</li>
+<li>FNR(False nagative rate): $FN/(FN+TP)$</li>
+</ul>
+<h2 id="how-to-draw-a-roc">How to draw a ROC</h2>
+<p>Generally speaking, ROC is a curve whose X-axis is <strong>FPR</strong> and Y-axis is <strong>TPR</strong>. Assume we have a test set <strong>$D$</strong> consisting of <strong>$m_+$</strong> positive samples and $m_-$ negative samples and a binary classifier(e.g. logistic regression) which can output the probability of a sample being predicted as positive. It is known that in practice we need to set a specific threshod $t$ and samples with probability higher than or equal to $t$ will be regarded as positive. We can keep adjusting  $t$ between $0$ and $1$, and calculate  **FPR** and **TPR** for each $t$ as coordinates of a point. All points finally get us the ROC curve. Below is a concrete example:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Class</th>
+<th>Score</th>
+<th>#</th>
+<th>Class</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>P</td>
+<td>0.99</td>
+<td>11</td>
+<td>N</td>
+<td>0.55</td>
+</tr>
+<tr>
+<td>2</td>
+<td>P</td>
+<td>0.97</td>
+<td>12</td>
+<td>N</td>
+<td>0.50</td>
+</tr>
+<tr>
+<td>3</td>
+<td>N</td>
+<td>0.80</td>
+<td>13</td>
+<td>P</td>
+<td>0.49</td>
+</tr>
+<tr>
+<td>4</td>
+<td>P</td>
+<td>0.75</td>
+<td>14</td>
+<td>N</td>
+<td>0.47</td>
+</tr>
+<tr>
+<td>5</td>
+<td>N</td>
+<td>0.70</td>
+<td>15</td>
+<td>P</td>
+<td>0.45</td>
+</tr>
+<tr>
+<td>6</td>
+<td>P</td>
+<td>0.69</td>
+<td>16</td>
+<td>N</td>
+<td>0.40</td>
+</tr>
+<tr>
+<td>7</td>
+<td>P</td>
+<td>0.65</td>
+<td>17</td>
+<td>N</td>
+<td>0.35</td>
+</tr>
+<tr>
+<td>8</td>
+<td>P</td>
+<td>0.63</td>
+<td>18</td>
+<td>P</td>
+<td>0.33</td>
+</tr>
+<tr>
+<td>9</td>
+<td>N</td>
+<td>0.62</td>
+<td>19</td>
+<td>N</td>
+<td>0.22</td>
+</tr>
+<tr>
+<td>10</td>
+<td>P</td>
+<td>0.55</td>
+<td>20</td>
+<td>N</td>
+<td>0.11</td>
+</tr>
+</tbody>
+</table>
+<p>Assume now we have 20 test samples(10 positive and 10 negative), and the column <em>Class</em> is the actual label and column <em>Score</em>  is the predicted probability from our classifer. We have sorted them in descending order based on <em>Score</em>. And the final ROC curve we can get is:</p>
+<p><img src="https://i.imgur.com/8tG2wmg.png" alt="Imgur" title="ROC curve"></p>
+<p>The procedure is as follows.</p>
+<ul>
+<li>Firstly we set threshold $t$ as 1, then no samples are treated as positive. In this case, $FPR=FP/(FP+TN)=0/(0+10)=0$ and $TPR=TP/(TP+FN)=0/(0+10)=0$, which gives us the first point <strong>A(0.0,0.0)</strong>.</li>
+<li>Then we set $t$ as $0.99$, then the first sample is treated as positive. In this case, $FPR=FP/(FP+TN)=0/(0+10)=0$ and $TPR=TP/(TP+FN)=1/(1+9)=0.1$, which gives us the second point <strong>B(0.0,0.1)</strong>.</li>
+<li>We can continue setting $t$ as the scores in descending order to get a series of points. Finally, when $t$ is $0$, then all samples are predicted as positive. In this case,  $FPR=FP/(FP+TN)=10/(10+0)=1$ and $TPR=TP/(TP+FN)=10/(10+0)=1$, which gives us the end point <strong>T(1.0,1.0)</strong>.</li>
+</ul>
+<p>So this is how we draw a ROC curve given a test set and a binary classifier. And we can know that ROC curve always goes through point (0,0) and (1,1).</p>
+<h2 id="auc">AUC</h2>
+<h3 id="what-is-auc">What is AUC</h3>
+<p>After we get the ROC curve of a classifier on a specific test set, then how can we evaluate its performance? We use the so-called AUC which is the area under ROC curve! Generally speaking, the bigger the AUC is, the betther the classifer performs. Specially:</p>
+<ul>
+<li>If AUC=1, then the classifier is perfert, which means it gives all positive samples higher probabilities than negative samples. There also must be one threshold that could make the classifer&rsquo;s accuracy 100% in this case.</li>
+<li>If 0.5&lt;AUC&lt;1, then the classifier is better than random guess. A proper threshold could make the classifier valuable.</li>
+<li>If AUC=0.5, then the classifier is equavilent to random guess.</li>
+<li>If AUC&lt;0.5, then the classifier is even worse than random guess. However, in this case we can always improve its performance by flipping the polarity of the prediction.</li>
+</ul>
+<h3 id="how-to-calculate--auc">How to calculate  AUC</h3>
+<p>Through observation, we can find the area under the curve can be divided into multiple trapeziums. In the ROC curve, for  every adjacent two points $p_i(x_i,y_i)$ and $p_{i+1}(x_{i+1},y_{i+1})$, we draw perpendicular lines to the X-axis through them, then four points $(x_{i},0)$, $(x_{i},y_i)$, $(x_{i+1},y_{i+1})$, $(x_{i+1},0)$ form a trapezium, which is illustrated in following figure.
+<img src="https://i.imgur.com/ptZDpzh.png" alt="Imgur_AUC" title="AUC"></p>
+<p>Assume the test set $D$ consists of positive sample set $D_{+}$ and negative sample set $D_{-}$. And $|D|=m$, $|D_{+}|=m_{+}$, $|D_{-}|=m_{-}$. And ROC curve is formed by a series of points:</p>
+<p>$${p_{1}(x_{1},y_{1}),p_{2}(x_{2},y_{2}),&hellip;p_{i}(x_{i},y_{i}),&hellip;p_{m}(x_{m},y_{m})}.$$</p>
+<p>Then AUC can be calculated as:</p>
+<p>$$AUC=\frac{1}{2}\sum_{i=1}^{m-1}(x_{i+1}-x_{i})(y_{i+1}+y_{i})
+$$</p>
+<h3 id="another-interpretation-of-auc">Another interpretation of AUC</h3>
+<p>We know if the classifier gives all positive samples higher probabilities than negative samples, then AUC is 1. This reminds us that AUC may be correlated with the quality of ranking of test set based on predicted probabilities. In fact, maximizing AUC is equilavent to minimizing the rank loss, which is defined as:</p>
+<p>$$l_{rank}=\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+I\Big(f(x_{+}) \lt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
+\right)$$</p>
+<p>$I$ is an indicator function which maps $true$ to $1$ and $false$ to $0$. $f$ is a function which maps a sample to its probability of being positive. We consider each pair of positive and nagative samples, if the probability of positive sample is less than negative sample, we get &ldquo;one&rdquo; penalty, and if they are equal, we get &ldquo;half&rdquo; penalty. Essentially, $l_{rank}$ is the area above the ROC curve. In other words:</p>
+<p>$$ AUC = 1-l_{rank}$$</p>
+<p>To illustrate this, we need to notice that we move from $p_{i}(x_{i},y_{i})$ to $p_{i+1}(x_{i+1},y_{i+1})$ on the ROC curve when adjusting threshold $t$ from $t_{i}$ to $t_{i+1}$ and lower threshold will make more samples being treated as positive. In this process, $(x_{i+1}-x_{i})\ast m_{-}$ is the number of newly added $FP$ and $(y_{i+1}-y_{i})\ast m_{+}$ is the number of newly added $TP$. For example, when we adjusting threshold from $0.62$ to $0.55$, we move from point $J$ to $K$. And we get $1$ ($(0.4-0.3)\ast 10=1$) $FP$ that is the $11_{th}$ sample, and $1$ ($(0.7-0.6)\ast 10=1$) $TP$ that is the $10_{th}$ sample.
+Now we can get:</p>
+<p>$$1-l_{rank}=1-\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+I\Big(f(x_{+}) \lt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
+\right)
+$$
+$$=\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+I\Big(f(x_{+}) \gt f(x_{-})\Big)+
+I\Big(f(x_{+}) \lt f(x_{-})\Big)+I\Big(f(x_{+})=f(x_{-})\Big)
+\right)$$
+$$-\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+I\Big(f(x_{+}) \lt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
+\right)$$
+$$=\frac{1}{m_{+}m_{-}}
+\sum_{x_{+}\in D_{+}}\sum_{x_{-}\in D_{-}}
+\left(
+I\Big(f(x_{+}) \gt f(x_{-})\Big)+\frac{1}{2}I\Big(f(x_{+})=f(x_{-})\Big)
+\right)$$</p>
+<p>We need to illustrate this is also the area under the curve. We can decompose the AUC is this way:
+<img src="https://i.imgur.com/JhfeQm4.png" alt="AUC2">
+We can count the number of pairs of positive and negative samples in which $f(x_{+})\gt f(x_{-})$ in following way. For example, from $p_{A}$ to $p_{C}$,  we get $2$ positive samples, then how many negative samples we have with lower probability? Horizontal line segments represent negative samples. For example from $p_{C}$ to $p_{D}$, we have $1$ negative sample and from $p_{E}$ to $p_{F}$, we have $1$ negative sample. So easily, we can get there are $10$ negative samples with lower probability in total. So we can get number of pairs that is $2\ast 10=20$.  Divide it by $m_{+}\ast m_{-}=100$, we can get the exact area of the bottom two rectangles.</p>
+<p>Also it is not hard to find out why we have $\frac{1}{2}$ when $f(x_{+})=f(x_{-})$ if we consider the triangle under the line segment between $p_{J}$ and $p_{K}$. So now intuitively, we can understand $1-l_{rank}$ is just the $AUC$.</p>
+<p>From this perspective, AUC can be understood as the probability that a positive sample has a higher predicted score than a negative sample if they are randomly picked.</p>
+<h2 id="python-script-to-draw-roc">Python script to draw ROC</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="k">def</span> <span class="nf">ROC</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span><span class="n">probs</span><span class="p">):</span>
+   <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">   @param: labels, a list of actual labels(0 or 1). 1 is positive and 0 is negative.
+</span><span class="s2">   @param: probs: a list of predicted probabilities.
+</span><span class="s2">   &#34;&#34;&#34;</span>
+   <span class="n">l_p</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span><span class="n">probs</span><span class="p">)</span>
+   <span class="n">l_p</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+   <span class="n">labels</span><span class="p">,</span> <span class="n">probs</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">l_p</span><span class="p">))</span>
+   <span class="n">actual_cnts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+   <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+       <span class="n">actual_cnts</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+   <span class="n">points_x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="n">points_y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="n">ini_p</span> <span class="o">=</span> <span class="n">probs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="n">cur_lab</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="n">cnt_pos</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="n">cnt_neg</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="k">if</span> <span class="n">cur_lab</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+       <span class="n">cnt_neg</span> <span class="o">=</span> <span class="mi">1</span>
+   <span class="k">else</span><span class="p">:</span>
+       <span class="n">cnt_pos</span> <span class="o">=</span> <span class="mi">1</span>
+   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">)):</span>
+       <span class="n">cur_p</span> <span class="o">=</span> <span class="n">probs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+       <span class="k">if</span> <span class="n">cur_p</span><span class="o">!=</span><span class="n">ini_p</span><span class="p">:</span>
+           <span class="n">points_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">cnt_neg</span><span class="p">)</span><span class="o">/</span><span class="n">actual_cnts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+           <span class="n">points_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">cnt_pos</span><span class="p">)</span><span class="o">/</span><span class="n">actual_cnts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+           <span class="n">ini_p</span> <span class="o">=</span> <span class="n">cur_p</span>
+       <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+           <span class="n">cnt_neg</span><span class="o">+=</span><span class="mi">1</span>
+       <span class="k">else</span><span class="p">:</span>
+           <span class="n">cnt_pos</span><span class="o">+=</span><span class="mi">1</span>
+   <span class="n">points_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">cnt_neg</span><span class="p">)</span><span class="o">/</span><span class="n">actual_cnts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+   <span class="n">points_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">cnt_pos</span><span class="p">)</span><span class="o">/</span><span class="n">actual_cnts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+   <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+   <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">points_x</span><span class="p">,</span><span class="n">points_y</span> <span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&#34;--&#34;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+   <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">points_x</span><span class="p">)]):</span>
+       <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">points_x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points_y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&#34;</span><span class="o">%</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">points_x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">points_y</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+     <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span><span class="n">fontweight</span><span class="o">=</span><span class="s2">&#34;bold&#34;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+   <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;FPR&#34;</span><span class="p">)</span>
+   <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;TPR&#34;</span><span class="p">)</span>
+   <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;ROC curve&#34;</span><span class="p">)</span>
+   <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+   <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+   <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.97</span><span class="p">,</span><span class="mf">0.80</span><span class="p">,</span><span class="mf">0.75</span><span class="p">,</span><span class="mf">0.70</span><span class="p">,</span><span class="mf">0.69</span><span class="p">,</span><span class="mf">0.65</span><span class="p">,</span><span class="mf">0.63</span><span class="p">,</span><span class="mf">0.62</span><span class="p">,</span><span class="mf">0.55</span><span class="p">,</span><span class="mf">0.55</span><span class="p">,</span><span class="mf">0.50</span><span class="p">,</span><span class="mf">0.49</span><span class="p">,</span><span class="mf">0.47</span><span class="p">,</span><span class="mf">0.45</span><span class="p">,</span><span class="mf">0.40</span><span class="p">,</span><span class="mf">0.35</span><span class="p">,</span><span class="mf">0.33</span><span class="p">,</span><span class="mf">0.22</span><span class="p">,</span><span class="mf">0.11</span><span class="p">]</span>
+   <span class="n">ROC</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span><span class="n">probs</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/roc/">ROC</a>
+          <a href="/tags/auc/">AUC</a>
+          </div>
+      <nav class="post-nav">
+        
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Hao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: {equationNumbers: {autoNumber: "AMS"}},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
